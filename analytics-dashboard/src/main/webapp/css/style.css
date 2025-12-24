@@ -1,0 +1,267 @@
+/* ========================================
+   Streaming Analytics Dashboard - Styles
+   ========================================
+   Ce fichier peut être utilisé comme alternative
+   au CSS intégré dans les fichiers JSP
+   ======================================== */
+
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    color: #e8eaf6;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+/* Container principal */
+.modern-container {
+    max-width: 900px;
+    width: 100%;
+    background: rgba(30, 27, 75, 0.85);
+    border-radius: 24px;
+    padding: 50px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3),
+                0 0 80px rgba(168, 85, 247, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    text-align: center;
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+/* Typographie */
+h1 {
+    color: #a855f7;
+    font-size: 3.5em;
+    font-weight: 800;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    color: #c4b5fd;
+    font-size: 1.3em;
+    font-weight: 400;
+    margin-bottom: 40px;
+    letter-spacing: 0.5px;
+}
+
+.welcome-text {
+    font-size: 1.1em;
+    color: #d4d4d4;
+    line-height: 1.7;
+    margin: 15px 0;
+    font-weight: 400;
+}
+
+/* Feature Cards Grid */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.feature-card {
+    background: linear-gradient(135deg, rgba(88, 28, 135, 0.3) 0%, rgba(49, 46, 129, 0.3) 100%);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+}
+
+.feature-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3),
+                0 0 60px rgba(236, 72, 153, 0.2);
+    border-color: rgba(168, 85, 247, 0.5);
+    background: linear-gradient(135deg, rgba(88, 28, 135, 0.5) 0%, rgba(49, 46, 129, 0.5) 100%);
+}
+
+.feature-icon {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.feature-title {
+    color: #e9d5ff;
+    font-size: 1.2em;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.feature-description {
+    color: #b8b8b8;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+/* Boutons modernes */
+.modern-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+    color: white;
+    padding: 18px 45px;
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 1.1em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+    margin-top: 30px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.modern-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.modern-button:hover::before {
+    left: 100%;
+}
+
+.modern-button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(168, 85, 247, 0.5);
+    background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+}
+
+/* Footer */
+.modern-footer {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(168, 85, 247, 0.2);
+    color: #a5b4fc;
+    font-size: 0.9em;
+}
+
+/* Tech Stack */
+.tech-stack {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.tech-item {
+    background: rgba(168, 85, 247, 0.1);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    color: #c4b5fd;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    transition: all 0.3s ease;
+}
+
+.tech-item:hover {
+    background: rgba(168, 85, 247, 0.2);
+    border-color: rgba(168, 85, 247, 0.5);
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .modern-container {
+        padding: 30px 20px;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========================================
+   Variables CSS pour personnalisation facile
+   ======================================== */
+:root {
+    /* Couleurs principales */
+    --primary-purple: #a855f7;
+    --primary-pink: #ec4899;
+    --primary-cyan: #06b6d4;
+
+    /* Couleurs de fond */
+    --bg-dark-1: #0f0c29;
+    --bg-dark-2: #302b63;
+    --bg-dark-3: #24243e;
+
+    /* Couleurs de texte */
+    --text-light: #e8eaf6;
+    --text-muted: #b8b8b8;
+    --text-accent: #c4b5fd;
+
+    /* Espacements */
+    --spacing-sm: 12px;
+    --spacing-md: 20px;
+    --spacing-lg: 40px;
+
+    /* Border radius */
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+}
+
+/* ========================================
+   Exemples d'utilisation des variables CSS
+   ======================================== */
+
+/* Exemple : Utiliser les variables pour changer facilement les couleurs
+body {
+    background: linear-gradient(135deg, var(--bg-dark-1) 0%, var(--bg-dark-2) 50%, var(--bg-dark-3) 100%);
+}
+
+h1 {
+    background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-pink) 50%, var(--primary-cyan) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+*/
+
