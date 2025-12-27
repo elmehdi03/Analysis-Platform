@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>✅ TEST - NOUVEAU DESIGN v2.0</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #e8eaf6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 800px;
+            background: rgba(30, 27, 75, 0.85);
+            border-radius: 24px;
+            padding: 60px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3),
+                        0 0 80px rgba(168, 85, 247, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .status {
+            font-size: 2em;
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(88, 28, 135, 0.3) 0%, rgba(49, 46, 129, 0.3) 100%);
+            border-radius: 16px;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .info {
+            font-size: 1.2em;
+            color: #c4b5fd;
+            line-height: 1.8;
+            margin: 20px 0;
+        }
+
+        .timestamp {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #a0a0a0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+            color: white;
+            padding: 18px 45px;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+            margin: 10px;
+        }
+
+        .button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(168, 85, 247, 0.5);
+            background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+        }
+
+        .check-list {
+            text-align: left;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(168, 85, 247, 0.1);
+            border-radius: 12px;
+            border-left: 4px solid #a855f7;
+        }
+
+        .check-list li {
+            margin: 10px 0;
+            color: #c4b5fd;
+        }
+
+        .success {
+            color: #4ade80;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✅ NOUVEAU DESIGN ACTIF!</h1>
+
+        <div class="status">
+            🎨 Design Unifié Version 2.0 🎨
+        </div>
+
+        <div class="info">
+            <p><strong class="success">SI VOUS VOYEZ CETTE PAGE CORRECTEMENT:</strong></p>
+            <p>Le serveur utilise bien le nouveau code et le nouveau design fonctionne!</p>
+        </div>
+
+        <div class="check-list">
+            <p><strong>Vérifications:</strong></p>
+            <ul>
+                <li>✅ Fond: Violet dégradé (pas noir)</li>
+                <li>✅ Titre: Gradient coloré (purple → pink → cyan)</li>
+                <li>✅ Police: Inter (moderne)</li>
+                <li>✅ Carte: Semi-transparente avec blur</li>
+                <li>✅ Boutons: Gradient purple → pink</li>
+            </ul>
+        </div>
+
+        <div class="info">
+            <p>Si vous voyez tout cela correctement, alors:</p>
+            <p><strong>Le problème sur /dashboard est uniquement le CACHE du navigateur!</strong></p>
+        </div>
+
+        <a href="dashboard" class="button">Aller au Dashboard</a>
+        <a href="./" class="button">Page d'accueil</a>
+        <a href="stats" class="button">Statistiques</a>
+
+        <div class="timestamp">
+            Généré le: <script>document.write(new Date().toLocaleString('fr-FR'));</script>
+        </div>
+
+        <div class="info" style="margin-top: 40px; font-size: 0.9em; color: #a0a0a0;">
+            <p><strong>Si cette page s'affiche correctement mais /dashboard non:</strong></p>
+            <p>1. Fermez TOUS les navigateurs</p>
+            <p>2. Rouvrez en mode INCOGNITO</p>
+            <p>3. Allez directement sur /dashboard</p>
+            <p>4. Si ça ne marche toujours pas, essayez un autre navigateur</p>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,4 +1,3 @@
-version: '3.8'
 
 services:
   # Base de données MongoDB pour le stockage des événements
@@ -70,13 +69,12 @@ services:
 
   # Option 3 : Tomcat (pour Servlet/JSP sans full JEE)
   tomcat:
-    image: tomcat:10.1-jdk17
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: streaming-tomcat
     ports:
       - "8080:8080"
-    volumes:
-      - ./analytics-api/target/analytics-api-1.0-SNAPSHOT.war:/usr/local/tomcat/webapps/analytics-api.war
-      - ./analytics-dashboard/target/analytics-dashboard-1.0-SNAPSHOT.war:/usr/local/tomcat/webapps/analytics-dashboard.war
     environment:
       - CATALINA_OPTS=-Xms512m -Xmx1024m
       - MONGODB_HOST=mongodb

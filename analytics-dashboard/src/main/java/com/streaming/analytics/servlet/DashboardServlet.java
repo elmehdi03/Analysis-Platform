@@ -12,266 +12,183 @@ public class DashboardServlet extends HttpServlet {
         message = "STREAMING ANALYTICS";
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException
+    {
         response.setContentType("text/html;charset=UTF-8");
 
         PrintWriter out = response.getWriter();
+
         out.println("<!DOCTYPE html>");
         out.println("<html lang='fr'>");
         out.println("<head>");
-        out.println("    <meta charset='UTF-8'>");
-        out.println("    <meta name='viewport' content='width=device-width, initial-scale=1.0'>");
-        out.println("    <title>⚡ Streaming Analytics Dashboard ⚡</title>");
-        out.println("    <link href='https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap' rel='stylesheet'>");
-        out.println("    <style>");
+        out.println("  <meta charset='UTF-8'>");
+        out.println("  <meta name='viewport' content='width=device-width, initial-scale=1.0'>");
+        out.println("  <meta http-equiv='Cache-Control' content='no-cache, no-store, must-revalidate'>");
+        out.println("  <meta http-equiv='Pragma' content='no-cache'>");
+        out.println("  <meta http-equiv='Expires' content='0'>");
+        out.println("  <title>Streaming Analytics Dashboard</title>");
+        out.println("  <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap' rel='stylesheet'>");
 
-        // CSS Variables
-        out.println("        :root {");
-        out.println("            --neon-cyan: #00f5ff;");
-        out.println("            --neon-magenta: #ff0080;");
-        out.println("            --neon-purple: #7928ca;");
-        out.println("            --dark-bg: #050505;");
-        out.println("            --shadow-cyan: rgba(0, 245, 255, 0.5);");
-        out.println("            --shadow-magenta: rgba(255, 0, 128, 0.5);");
-        out.println("        }");
+        out.println("<style>");
 
-        // Reset
-        out.println("        * { margin: 0; padding: 0; box-sizing: border-box; }");
+        /* ===================== */
+        /* VARIABLES (COULEURS IDENTIQUES) */
+        /* ===================== */
+        out.println(":root{");
+        out.println(" --primary-purple:#a855f7;");
+        out.println(" --primary-pink:#ec4899;");
+        out.println(" --primary-cyan:#06b6d4;");
+        out.println(" --bg-dark-1:#0f0c29;");
+        out.println(" --bg-dark-2:#302b63;");
+        out.println(" --bg-dark-3:#24243e;");
+        out.println(" --card-bg:rgba(30,27,75,0.75);");
+        out.println(" --card-border:rgba(168,85,247,0.25);");
+        out.println(" --text-primary:#e8eaf6;");
+        out.println(" --text-secondary:#c4b5fd;");
+        out.println("}");
 
-        // Body
-        out.println("        body {");
-        out.println("            font-family: 'Rajdhani', 'Orbitron', sans-serif;");
-        out.println("            background: var(--dark-bg);");
-        out.println("            color: white;");
-        out.println("            min-height: 100vh;");
-        out.println("            padding: 20px;");
-        out.println("            position: relative;");
-        out.println("        }");
+        out.println("*{margin:0;padding:0;box-sizing:border-box;}");
 
-        // Grid Background
-        out.println("        body::before {");
-        out.println("            content: '';");
-        out.println("            position: fixed;");
-        out.println("            top: 0; left: 0;");
-        out.println("            width: 100%; height: 100%;");
-        out.println("            background: ");
-        out.println("                linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px),");
-        out.println("                linear-gradient(0deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px),");
-        out.println("                radial-gradient(circle at 30% 50%, rgba(0, 245, 255, 0.15), transparent 50%),");
-        out.println("                radial-gradient(circle at 70% 80%, rgba(255, 0, 128, 0.15), transparent 50%);");
-        out.println("            background-size: 50px 50px, 50px 50px, 100% 100%, 100% 100%;");
-        out.println("            animation: gridPulse 8s ease infinite;");
-        out.println("            pointer-events: none;");
-        out.println("        }");
+        out.println("body{");
+        out.println(" font-family:'Inter',system-ui,sans-serif;");
+        out.println(" background:linear-gradient(160deg,var(--bg-dark-1),var(--bg-dark-2),var(--bg-dark-3));");
+        out.println(" color:var(--text-primary);");
+        out.println(" min-height:100vh;");
+        out.println(" display:flex;");
+        out.println(" align-items:center;");
+        out.println(" justify-content:center;");
+        out.println(" padding:30px;");
+        out.println("}");
 
-        // Animations
-        out.println("        @keyframes gridPulse {");
-        out.println("            0%, 100% { opacity: 0.3; }");
-        out.println("            50% { opacity: 0.5; }");
-        out.println("        }");
+        out.println(".cyber-container{");
+        out.println(" width:100%;");
+        out.println(" max-width:1100px;");
+        out.println(" background:var(--card-bg);");
+        out.println(" border-radius:18px;");
+        out.println(" padding:45px;");
+        out.println(" border:1px solid var(--card-border);");
+        out.println(" backdrop-filter:blur(18px);");
+        out.println(" box-shadow:0 30px 60px rgba(0,0,0,0.35);");
+        out.println(" text-align:center;");
+        out.println(" animation:fadeIn 0.8s ease;");
+        out.println("}");
 
-        out.println("        @keyframes borderRotate {");
-        out.println("            0% { background-position: 0% 50%; }");
-        out.println("            50% { background-position: 100% 50%; }");
-        out.println("            100% { background-position: 0% 50%; }");
-        out.println("        }");
+        out.println("@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}");
 
-        out.println("        @keyframes neonPulse {");
-        out.println("            0%, 100% { filter: drop-shadow(0 0 20px var(--neon-cyan)); }");
-        out.println("            50% { filter: drop-shadow(0 0 40px var(--neon-cyan)); }");
-        out.println("        }");
+        out.println("h1{");
+        out.println(" font-size:3em;");
+        out.println(" font-weight:900;");
+        out.println(" margin-bottom:15px;");
+        out.println(" background:linear-gradient(90deg,var(--primary-purple),var(--primary-pink));");
+        out.println(" -webkit-background-clip:text;");
+        out.println(" -webkit-text-fill-color:transparent;");
+        out.println("}");
 
-        // Container
-        out.println("        .cyber-container {");
-        out.println("            max-width: 1200px;");
-        out.println("            margin: 0 auto;");
-        out.println("            background: rgba(10, 10, 10, 0.8);");
-        out.println("            border-radius: 20px;");
-        out.println("            padding: 60px;");
-        out.println("            box-shadow: 0 0 60px var(--shadow-cyan), 0 0 100px var(--shadow-magenta);");
-        out.println("            backdrop-filter: blur(40px);");
-        out.println("            border: 2px solid transparent;");
-        out.println("            position: relative;");
-        out.println("            text-align: center;");
-        out.println("        }");
+        out.println(".subtitle{");
+        out.println(" font-size:1.1em;");
+        out.println(" color:var(--text-secondary);");
+        out.println(" margin-bottom:35px;");
+        out.println("}");
 
-        // Animated Border
-        out.println("        .cyber-container::before {");
-        out.println("            content: '';");
-        out.println("            position: absolute;");
-        out.println("            top: 0; left: 0; right: 0; bottom: 0;");
-        out.println("            border-radius: 20px;");
-        out.println("            padding: 2px;");
-        out.println("            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-magenta), var(--neon-purple), var(--neon-cyan));");
-        out.println("            background-size: 300% 300%;");
-        out.println("            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);");
-        out.println("            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);");
-        out.println("            -webkit-mask-composite: xor;");
-        out.println("            mask-composite: exclude;");
-        out.println("            animation: borderRotate 4s linear infinite;");
-        out.println("            z-index: -1;");
-        out.println("        }");
+        out.println(".welcome-text{");
+        out.println(" max-width:750px;");
+        out.println(" margin:0 auto 40px;");
+        out.println(" line-height:1.7;");
+        out.println("}");
 
-        // Title
-        out.println("        h1 {");
-        out.println("            font-family: 'Orbitron', sans-serif;");
-        out.println("            font-size: 4em;");
-        out.println("            font-weight: 900;");
-        out.println("            margin-bottom: 20px;");
-        out.println("            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta), var(--neon-purple));");
-        out.println("            -webkit-background-clip: text;");
-        out.println("            -webkit-text-fill-color: transparent;");
-        out.println("            letter-spacing: 5px;");
-        out.println("            text-transform: uppercase;");
-        out.println("            animation: neonPulse 2s ease-in-out infinite;");
-        out.println("        }");
+        out.println(".stats-grid{");
+        out.println(" display:grid;");
+        out.println(" grid-template-columns:repeat(auto-fit,minmax(220px,1fr));");
+        out.println(" gap:25px;");
+        out.println(" margin:40px 0;");
+        out.println("}");
 
-        // Subtitle
-        out.println("        .subtitle {");
-        out.println("            font-size: 1.4em;");
-        out.println("            color: #b0b0b0;");
-        out.println("            margin-bottom: 40px;");
-        out.println("            letter-spacing: 3px;");
-        out.println("        }");
+        out.println(".stat-card{");
+        out.println(" padding:30px;");
+        out.println(" border-radius:14px;");
+        out.println(" background:linear-gradient(145deg,rgba(168,85,247,0.12),rgba(236,72,153,0.12));");
+        out.println(" border:1px solid var(--card-border);");
+        out.println(" transition:all 0.35s ease;");
+        out.println("}");
 
-        // Welcome Text
-        out.println("        .welcome-text {");
-        out.println("            font-size: 1.2em;");
-        out.println("            color: #b0b0b0;");
-        out.println("            margin: 20px auto;");
-        out.println("            max-width: 800px;");
-        out.println("            line-height: 1.7;");
-        out.println("        }");
+        out.println(".stat-card:hover{");
+        out.println(" transform:translateY(-6px);");
+        out.println(" box-shadow:0 20px 40px rgba(168,85,247,0.35);");
+        out.println("}");
 
-        // Stats Grid
-        out.println("        .stats-grid {");
-        out.println("            display: grid;");
-        out.println("            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));");
-        out.println("            gap: 30px;");
-        out.println("            margin: 50px 0;");
-        out.println("        }");
+        out.println(".stat-number{");
+        out.println(" font-size:3.2em;");
+        out.println(" font-weight:800;");
+        out.println(" margin-bottom:8px;");
+        out.println(" color:var(--primary-cyan);");
+        out.println("}");
 
-        // Stat Card
-        out.println("        .stat-card {");
-        out.println("            background: rgba(10, 10, 10, 0.6);");
-        out.println("            border-radius: 15px;");
-        out.println("            padding: 40px 30px;");
-        out.println("            box-shadow: 0 0 30px rgba(0, 245, 255, 0.2);");
-        out.println("            border: 1px solid rgba(0, 245, 255, 0.3);");
-        out.println("            transition: all 0.5s;");
-        out.println("            backdrop-filter: blur(20px);");
-        out.println("        }");
+        out.println(".stat-label{");
+        out.println(" font-size:0.9em;");
+        out.println(" letter-spacing:1px;");
+        out.println(" text-transform:uppercase;");
+        out.println(" color:var(--text-secondary);");
+        out.println("}");
 
-        out.println("        .stat-card:hover {");
-        out.println("            transform: translateY(-15px) scale(1.05);");
-        out.println("            box-shadow: 0 0 60px var(--shadow-cyan), 0 0 100px var(--shadow-magenta);");
-        out.println("            border-color: var(--neon-cyan);");
-        out.println("        }");
+        out.println(".cyber-button{");
+        out.println(" display:inline-block;");
+        out.println(" padding:15px 38px;");
+        out.println(" margin:10px;");
+        out.println(" border-radius:10px;");
+        out.println(" font-weight:700;");
+        out.println(" text-decoration:none;");
+        out.println(" color:white;");
+        out.println(" background:linear-gradient(90deg,var(--primary-purple),var(--primary-pink));");
+        out.println(" transition:all 0.3s ease;");
+        out.println("}");
 
-        // Stat Number
-        out.println("        .stat-number {");
-        out.println("            font-family: 'Orbitron', sans-serif;");
-        out.println("            font-size: 4em;");
-        out.println("            font-weight: 900;");
-        out.println("            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));");
-        out.println("            -webkit-background-clip: text;");
-        out.println("            -webkit-text-fill-color: transparent;");
-        out.println("            margin-bottom: 15px;");
-        out.println("        }");
+        out.println(".cyber-button:hover{");
+        out.println(" transform:scale(1.05);");
+        out.println(" box-shadow:0 12px 30px rgba(236,72,153,0.45);");
+        out.println("}");
 
-        // Stat Label
-        out.println("        .stat-label {");
-        out.println("            font-family: 'Rajdhani', sans-serif;");
-        out.println("            font-size: 1.2em;");
-        out.println("            color: #b0b0b0;");
-        out.println("            font-weight: 700;");
-        out.println("            letter-spacing: 3px;");
-        out.println("            text-transform: uppercase;");
-        out.println("        }");
+        out.println(".cyber-footer{");
+        out.println(" margin-top:45px;");
+        out.println(" padding-top:25px;");
+        out.println(" border-top:1px solid var(--card-border);");
+        out.println(" font-size:0.85em;");
+        out.println(" opacity:0.8;");
+        out.println("}");
 
-        // Cyber Button
-        out.println("        .cyber-button {");
-        out.println("            font-family: 'Orbitron', sans-serif;");
-        out.println("            display: inline-block;");
-        out.println("            background: transparent;");
-        out.println("            color: var(--neon-cyan);");
-        out.println("            padding: 22px 60px;");
-        out.println("            text-decoration: none;");
-        out.println("            font-size: 1.2em;");
-        out.println("            font-weight: 700;");
-        out.println("            text-transform: uppercase;");
-        out.println("            letter-spacing: 4px;");
-        out.println("            transition: all 0.4s;");
-        out.println("            box-shadow: 0 0 20px var(--shadow-cyan);");
-        out.println("            margin: 20px 10px;");
-        out.println("            border: 2px solid var(--neon-cyan);");
-        out.println("            cursor: pointer;");
-        out.println("            position: relative;");
-        out.println("            overflow: hidden;");
-        out.println("            clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);");
-        out.println("        }");
+        out.println("@media(max-width:768px){");
+        out.println(" h1{font-size:2.3em;}");
+        out.println(" .cyber-container{padding:30px 20px;}");
+        out.println("}");
 
-        out.println("        .cyber-button:hover {");
-        out.println("            color: white;");
-        out.println("            transform: translateY(-5px) scale(1.05);");
-        out.println("            box-shadow: 0 0 40px var(--shadow-cyan), 0 0 80px var(--shadow-magenta);");
-        out.println("            border-color: var(--neon-magenta);");
-        out.println("            text-shadow: 0 0 10px var(--neon-cyan);");
-        out.println("            background: rgba(0, 245, 255, 0.1);");
-        out.println("        }");
-
-        // Footer
-        out.println("        .cyber-footer {");
-        out.println("            margin-top: 60px;");
-        out.println("            padding-top: 40px;");
-        out.println("            border-top: 1px solid rgba(0, 245, 255, 0.2);");
-        out.println("            color: #b0b0b0;");
-        out.println("            font-size: 0.9em;");
-        out.println("        }");
-
-        // Responsive
-        out.println("        @media (max-width: 768px) {");
-        out.println("            .cyber-container { padding: 30px 20px; }");
-        out.println("            h1 { font-size: 2.5em; }");
-        out.println("            .stats-grid { grid-template-columns: 1fr; }");
-        out.println("            .cyber-button { padding: 16px 40px; font-size: 1em; }");
-        out.println("        }");
-
-        out.println("    </style>");
+        out.println("</style>");
         out.println("</head>");
+
         out.println("<body>");
-        out.println("    <div class='cyber-container'>");
-        out.println("        <h1>⚡ " + message + " ⚡</h1>");
-        out.println("        <p class='subtitle'>FUTURISTIC BIG DATA ANALYTICS PLATFORM</p>");
-        out.println("        <p class='welcome-text'>Welcome to the next generation of streaming analytics. Monitor real-time performance and unlock powerful insights with cutting-edge technology.</p>");
-        out.println("        ");
-        out.println("        <div class='stats-grid'>");
-        out.println("            <div class='stat-card'>");
-        out.println("                <div class='stat-number'>100K+</div>");
-        out.println("                <div class='stat-label'>EVENTS</div>");
-        out.println("            </div>");
-        out.println("            <div class='stat-card'>");
-        out.println("                <div class='stat-number'>10K+</div>");
-        out.println("                <div class='stat-label'>VIDEOS</div>");
-        out.println("            </div>");
-        out.println("            <div class='stat-card'>");
-        out.println("                <div class='stat-number'>24/7</div>");
-        out.println("                <div class='stat-label'>REAL-TIME</div>");
-        out.println("            </div>");
-        out.println("        </div>");
-        out.println("        ");
-        out.println("        <div style='margin: 40px 0;'>");
-        out.println("            <a href='stats' class='cyber-button'>⚡ VIEW STATISTICS ⚡</a>");
-        out.println("            <a href='/analytics-dashboard/' class='cyber-button'>⚡ HOME ⚡</a>");
-        out.println("        </div>");
-        out.println("        ");
-        out.println("        <div class='cyber-footer'>");
-        out.println("            <p>⚡ ADVANCED STREAMING ANALYTICS PLATFORM - 2025 ⚡</p>");
-        out.println("            <p>Powered by Jakarta EE & MongoDB</p>");
-        out.println("        </div>");
-        out.println("    </div>");
+        out.println(" <div class='cyber-container'>");
+        out.println("   <h1>📊 " + message + " 📊</h1>");
+        out.println("   <p class='subtitle'>Real-Time Streaming Insights & Performance Metrics</p>");
+        out.println("   <p class='welcome-text'><strong>Nouveau design professionnel</strong> – clair, moderne et orienté analytics.</p>");
+
+        out.println("   <div class='stats-grid'>");
+        out.println("     <div class='stat-card'><div class='stat-number'>100K+</div><div class='stat-label'>Events</div></div>");
+        out.println("     <div class='stat-card'><div class='stat-number'>10K+</div><div class='stat-label'>Videos</div></div>");
+        out.println("     <div class='stat-card'><div class='stat-number'>24/7</div><div class='stat-label'>Real-Time</div></div>");
+        out.println("   </div>");
+
+        out.println("   <div style='margin:40px 0;'>");
+        out.println("     <a href='stats' class='cyber-button'>VIEW STATISTICS</a>");
+        out.println("     <a href='/analytics-dashboard/' class='cyber-button'>HOME</a>");
+        out.println("   </div>");
+
+        out.println("   <div class='cyber-footer'>");
+        out.println("     <p>Advanced Streaming Analytics Platform – 2025</p>");
+        out.println("     <p>Powered by Jakarta EE & MongoDB</p>");
+        out.println("   </div>");
+
+        out.println(" </div>");
         out.println("</body>");
         out.println("</html>");
+
     }
 
     public void destroy() {
