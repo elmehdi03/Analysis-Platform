@@ -84,3 +84,24 @@ logs/
 *.db
 *.sqlite
 *.sqlite3
+
+### Generated Documentation ###
+# Fichiers de guides générés automatiquement
+COMMENCER_ICI.txt
+LIRE_EN_PREMIER.txt
+GUIDE_COMPLET.md
+GUIDE_DEMARRAGE.md
+RESUME_ACTIONS.md
+RECAPITULATIF_FINAL.md
+
+### Backup Files ###
+# Fichiers de sauvegarde et scripts redondants
+check.bat
+check.ps1
+INDEX.md
+COMMENCER_ICI.md
+LISEZ_MOI.txt
+
+### Assets Folder ###
+# Dossier d'exemples et fichiers de référence (optionnel)
+# assets/

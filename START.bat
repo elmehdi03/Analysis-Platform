@@ -1,85 +1,90 @@
 @echo off
-chcp 65001 >nul
-cls
+REM Script de démarrage pour la plateforme Streaming Analytics
+REM Date: 2025-12-28
 
 echo ========================================
-echo   DÉMARRAGE STREAMING ANALYTICS
+echo   Streaming Analytics Platform - START
 echo ========================================
 echo.
 
-REM Vérifier Docker
-echo Vérification de Docker...
-docker ps >nul 2>&1
-if errorlevel 1 (
-    echo.
-    echo [ERREUR] Docker n'est pas en cours d'exécution!
-    echo.
-    echo SOLUTION :
-    echo 1. Ouvrez Docker Desktop
-    echo 2. Attendez que Docker soit complètement démarré
-    echo 3. Réexécutez ce script
-    echo.
+REM Étape 1: Vérifier Docker
+echo [1/5] Vérification de Docker...
+docker info >nul 2>&1
+if %ERRORLEVEL% NEQ 0 (
+    echo ERREUR: Docker n'est pas en cours d'execution!
+    echo Veuillez demarrer Docker Desktop et reessayer.
     pause
     exit /b 1
 )
-
-echo [OK] Docker est en cours d'exécution
+echo OK - Docker est en cours d'execution
 echo.
 
-REM Arrêter les conteneurs existants
-echo Arrêt des conteneurs existants...
-docker-compose down >nul 2>&1
+REM Étape 2: Vérifier et libérer les ports
+echo [2/6] Verification des ports...
+for %%p in (27017 8080 8081) do (
+    netstat -ano | findstr :%%p | findstr LISTENING >nul 2>&1
+    if not errorlevel 1 (
+        echo Port %%p occupe, liberation...
+        docker-compose down -v >nul 2>&1
+        timeout /t 2 /nobreak >nul
+    )
+)
+echo OK - Ports disponibles
 echo.
 
-REM Démarrer les conteneurs
-echo Démarrage des conteneurs...
+REM Étape 3: Nettoyer les anciens conteneurs
+echo [3/6] Nettoyage des anciens conteneurs...
+docker-compose down -v >nul 2>&1
+echo OK - Nettoyage termine
+echo.
+
+REM Étape 4: Compiler le projet
+echo [4/6] Compilation du projet Maven...
+call mvn clean package -DskipTests
+if %ERRORLEVEL% NEQ 0 (
+    echo ERREUR: La compilation a echoue!
+    pause
+    exit /b 1
+)
+echo OK - Compilation reussie
+echo.
+
+REM Étape 5: Démarrer les services Docker
+echo [5/6] Demarrage des services Docker...
 docker-compose up -d
-
-if errorlevel 1 (
-    echo.
-    echo [ERREUR] Impossible de démarrer les conteneurs
-    echo.
+if %ERRORLEVEL% NEQ 0 (
+    echo ERREUR: Le demarrage des services a echoue!
     pause
     exit /b 1
 )
-
-echo.
-echo [OK] Conteneurs démarrés avec succès!
+echo OK - Services demarres
 echo.
 
-REM Attendre que Tomcat soit prêt
-echo Attente du démarrage de Tomcat...
-echo (Cela peut prendre 30-60 secondes)
+REM Étape 6: Attendre que les services soient prêts
+echo [6/6] Attente du demarrage complet (30 secondes)...
+timeout /t 30 /nobreak >nul
+echo OK - Services prets!
 echo.
 
-timeout /t 40 /nobreak >nul
-
-echo.
+REM Afficher les URLs
 echo ========================================
-echo   PROJET DÉMARRÉ AVEC SUCCÈS!
+echo   SERVICES DISPONIBLES
 echo ========================================
 echo.
-echo URLs disponibles :
-echo.
-echo   🏠 Page d'accueil :
-echo      http://localhost:8080/analytics-dashboard/
-echo.
-echo   📊 Dashboard :
-echo      http://localhost:8080/analytics-dashboard/dashboard
-echo.
-echo   🗄️ MongoDB Express :
-echo      http://localhost:8081/
+echo Dashboard:        http://localhost:8080/analytics-dashboard/
+echo API:              http://localhost:8080/analytics-api/api/v1/analytics/health
+echo Mongo Express:    http://localhost:8081
+echo MongoDB:          mongodb://admin:admin123@localhost:27017
 echo.
 echo ========================================
+echo   COMMANDES UTILES
+echo ========================================
 echo.
-
-REM Ouvrir le navigateur
-echo Ouverture du navigateur...
-start http://localhost:8080/analytics-dashboard/
-
+echo Voir les logs:        docker-compose logs -f
+echo Arreter les services: docker-compose down
+echo Redemarrer:           docker-compose restart
 echo.
-echo Pour voir les logs : docker logs -f streaming-tomcat
-echo Pour arrêter : docker-compose down
+echo Bon developpement!
 echo.
 pause
 
