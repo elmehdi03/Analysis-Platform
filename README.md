@@ -15,7 +15,7 @@ Plateforme d'analyse Big Data pour streaming vidéo basée sur Jakarta EE avec t
 
 ## 🏗️ Architecture
 
-- **Backend**: Jakarta EE 10 (JAX-RS, CDI) avec Jersey
+- **Backend**: Jakarta EE 10 (JAX-RS, CDI) avec Jersey + Moteur de Recommandation
 - **Base de données**: MongoDB pour le stockage des événements et analytics
 - **Frontend**: Dashboard JSP avec style rétro
 - **Build**: Maven multi-module
@@ -91,6 +91,7 @@ Une fois démarré, vous pouvez accéder à :
 | Service | URL | Description |
 |---------|-----|-------------|
 | 📊 **Dashboard** | http://localhost:8080/analytics-dashboard/ | Interface de visualisation |
+| 🎯 **Recommandations** | http://localhost:8080/analytics-dashboard/recommendations.jsp | Moteur de recommandations |
 | 🔌 **API** | http://localhost:8080/analytics-api/api/v1/analytics/health | API REST |
 | 🍃 **Mongo Express** | http://localhost:8081 | Interface d'admin MongoDB |
 | 🗄️ **MongoDB** | mongodb://admin:admin123@localhost:27017 | Base de données |
@@ -123,6 +124,9 @@ curl http://localhost:8080/analytics-api/api/v1/analytics/health
 
 # Top 10 vidéos
 curl http://localhost:8080/analytics-api/api/v1/analytics/videos/top?limit=10
+
+# Recommandations pour l'utilisateur user_10
+curl http://localhost:8080/analytics-api/api/v1/analytics/users/user_10/recommendations
 ```
 
 ## 💻 Développement

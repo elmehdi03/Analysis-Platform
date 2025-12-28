@@ -108,3 +108,8 @@ LISEZ_MOI.txt
 events_100k.json
 videos_catalog.json
 
+
+### Debug Files ###
+debug_*.html
+final_*.html
+tomcat_full.log
