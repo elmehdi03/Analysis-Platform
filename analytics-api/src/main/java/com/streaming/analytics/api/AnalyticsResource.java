@@ -53,13 +53,14 @@ public class AnalyticsResource {
             "<head>" +
             "    <meta charset='UTF-8'>" +
             "    <meta name='viewport' content='width=device-width, initial-scale=1.0'>" +
-            "    <title>API Health Check</title>" +
+            "    <title>API Health - DataFlow Analytics</title>" +
+            "    <link href='https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap' rel='stylesheet'>" +
             "    <style>" +
             "        * { margin: 0; padding: 0; box-sizing: border-box; }" +
             "        body {" +
-            "            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;" +
-            "            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);" +
-            "            color: #e2e8f0;" +
+            "            font-family: 'Space Grotesk', 'Inter', sans-serif;" +
+            "            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);" +
+            "            color: #f8fafc;" +
             "            min-height: 100vh;" +
             "            display: flex;" +
             "            align-items: center;" +
@@ -69,31 +70,37 @@ public class AnalyticsResource {
             "        }" +
             "        body::before {" +
             "            content: '';" +
-            "            position: absolute;" +
-            "            top: 0; left: 0; right: 0; bottom: 0;" +
-            "            background: radial-gradient(circle at 30% 70%, rgba(14, 165, 233, 0.1) 0%, transparent 50%)," +
-            "                        radial-gradient(circle at 70% 30%, rgba(168, 85, 247, 0.1) 0%, transparent 50%);" +
+            "            position: fixed;" +
+            "            top: -50%; left: -50%;" +
+            "            width: 200%; height: 200%;" +
+            "            background: radial-gradient(circle at 30% 40%, rgba(6, 182, 212, 0.08) 0%, transparent 50%)," +
+            "                        radial-gradient(circle at 70% 60%, rgba(249, 115, 22, 0.08) 0%, transparent 50%);" +
+            "            animation: rotate 20s linear infinite;" +
             "            pointer-events: none;" +
+            "            z-index: 0;" +
+            "        }" +
+            "        @keyframes rotate {" +
+            "            0% { transform: rotate(0deg); }" +
+            "            100% { transform: rotate(360deg); }" +
             "        }" +
             "        .health-container {" +
             "            max-width: 600px;" +
             "            width: 100%;" +
-            "            background: rgba(30, 27, 75, 0.85);" +
-            "            border: 1px solid rgba(168, 85, 247, 0.2);" +
+            "            background: rgba(30, 41, 59, 0.6);" +
+            "            border: 1px solid #475569;" +
             "            border-radius: 24px;" +
             "            padding: 50px;" +
-            "            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3), 0 0 80px rgba(168, 85, 247, 0.1)," +
-            "                        inset 0 1px 0 rgba(255, 255, 255, 0.1);" +
-            "            backdrop-filter: blur(30px);" +
+            "            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);" +
+            "            backdrop-filter: blur(20px);" +
             "            text-align: center;" +
             "            position: relative;" +
             "            z-index: 1;" +
             "        }" +
             "        h1 {" +
             "            font-size: 2.5em;" +
-            "            font-weight: 800;" +
+            "            font-weight: 700;" +
             "            margin-bottom: 30px;" +
-            "            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);" +
+            "            background: linear-gradient(90deg, #10b981 0%, #14b8a6 100%);" +
             "            -webkit-background-clip: text;" +
             "            -webkit-text-fill-color: transparent;" +
             "            background-clip: text;" +
@@ -101,19 +108,19 @@ public class AnalyticsResource {
             "        .status-indicator {" +
             "            width: 80px;" +
             "            height: 80px;" +
-            "            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);" +
+            "            background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);" +
             "            border-radius: 50%;" +
             "            margin: 0 auto 30px;" +
             "            display: flex;" +
             "            align-items: center;" +
             "            justify-content: center;" +
             "            font-size: 3em;" +
-            "            box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);" +
+            "            box-shadow: 0 0 30px rgba(20, 184, 166, 0.5);" +
             "            animation: pulse 2s infinite;" +
             "        }" +
             "        @keyframes pulse {" +
-            "            0%, 100% { box-shadow: 0 0 30px rgba(16, 185, 129, 0.5); transform: scale(1); }" +
-            "            50% { box-shadow: 0 0 50px rgba(16, 185, 129, 0.7); transform: scale(1.05); }" +
+            "            0%, 100% { box-shadow: 0 0 30px rgba(20, 184, 166, 0.5); transform: scale(1); }" +
+            "            50% { box-shadow: 0 0 50px rgba(20, 184, 166, 0.7); transform: scale(1.05); }" +
             "        }" +
             "        .info-grid {" +
             "            display: grid;" +
@@ -121,64 +128,72 @@ public class AnalyticsResource {
             "            margin: 30px 0;" +
             "        }" +
             "        .info-item {" +
-            "            background: linear-gradient(135deg, rgba(88, 28, 135, 0.3) 0%, rgba(49, 46, 129, 0.3) 100%);" +
-            "            border: 1px solid rgba(168, 85, 247, 0.2);" +
-            "            border-radius: 16px;" +
+            "            background: rgba(30, 41, 59, 0.6);" +
+            "            border: 1px solid #475569;" +
+            "            border-radius: 12px;" +
             "            padding: 20px;" +
             "            backdrop-filter: blur(10px);" +
+            "            position: relative;" +
+            "            overflow: hidden;" +
+            "        }" +
+            "        .info-item::before {" +
+            "            content: '';" +
+            "            position: absolute;" +
+            "            top: 0; left: 0;" +
+            "            width: 4px; height: 100%;" +
+            "            background: linear-gradient(180deg, #06b6d4, #f97316);" +
             "        }" +
             "        .info-label {" +
-            "            color: #a5b4fc;" +
-            "            font-size: 0.9em;" +
+            "            color: #94a3b8;" +
+            "            font-size: 0.85em;" +
             "            margin-bottom: 8px;" +
             "            text-transform: uppercase;" +
             "            letter-spacing: 1px;" +
+            "            font-family: 'Inter', sans-serif;" +
             "        }" +
             "        .info-value {" +
-            "            color: #e9d5ff;" +
+            "            color: #f8fafc;" +
             "            font-size: 1.3em;" +
             "            font-weight: 600;" +
             "        }" +
             "        .back-button {" +
             "            display: inline-block;" +
-            "            background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);" +
-            "            color: white;" +
-            "            padding: 15px 35px;" +
+            "            background: linear-gradient(90deg, #06b6d4 0%, #14b8a6 100%);" +
+            "            color: #0f172a;" +
+            "            padding: 14px 32px;" +
             "            text-decoration: none;" +
-            "            border-radius: 12px;" +
-            "            font-weight: 700;" +
-            "            text-transform: uppercase;" +
-            "            letter-spacing: 1.5px;" +
-            "            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);" +
-            "            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);" +
+            "            border-radius: 8px;" +
+            "            font-weight: 600;" +
+            "            letter-spacing: 0.5px;" +
+            "            transition: all 0.3s ease;" +
+            "            box-shadow: 0 8px 24px rgba(6, 182, 212, 0.3);" +
             "            margin-top: 20px;" +
             "        }" +
             "        .back-button:hover {" +
-            "            background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);" +
-            "            box-shadow: 0 15px 40px rgba(168, 85, 247, 0.5);" +
-            "            transform: translateY(-3px);" +
+            "            transform: translateY(-2px);" +
+            "            box-shadow: 0 12px 32px rgba(6, 182, 212, 0.4);" +
             "        }" +
             "    </style>" +
             "</head>" +
             "<body>" +
             "    <div class='health-container'>" +
             "        <div class='status-indicator'>✓</div>" +
-            "        <h1>System Operational</h1>" +
+            "        <h1>Système Opérationnel</h1>" +
             "        <div class='info-grid'>" +
             "            <div class='info-item'>" +
-            "                <div class='info-label'>Status</div>" +
-            "                <div class='info-value'>UP & Running</div>" +
+            "                <div class='info-label'>Statut</div>" +
+            "                <div class='info-value'>Actif & Opérationnel</div>" +
             "            </div>" +
             "            <div class='info-item'>" +
             "                <div class='info-label'>Service</div>" +
             "                <div class='info-value'>Analytics API</div>" +
             "            </div>" +
             "            <div class='info-item'>" +
-            "                <div class='info-label'>Timestamp</div>" +
+            "                <div class='info-label'>Horodatage</div>" +
             "                <div class='info-value'>" + java.time.LocalDateTime.now().toString() + "</div>" +
             "            </div>" +
             "        </div>" +
-            "        <a href='/analytics-dashboard/stats' class='back-button'>← Back to Dashboard</a>" +
+            "        <a href='/analytics-dashboard/' class='back-button'>← Retour au Dashboard</a>" +
             "    </div>" +
             "</body>" +
             "</html>";
@@ -306,32 +321,3 @@ public class AnalyticsResource {
     // }
 }
 
-
-/**
- * NOTES POUR LES ÉTUDIANTS :
- * 
- * 1. VALIDATION
- *    - Valider tous les paramètres d'entrée
- *    - Vérifier les IDs ne sont pas vides
- *    - Valider les limites (ex: limit entre 1 et 100)
- * 
- * 2. GESTION D'ERREURS
- *    - Utiliser try-catch appropriés
- *    - Retourner des codes HTTP corrects (200, 201, 400, 404, 500)
- *    - Messages d'erreur clairs et utiles
- * 
- * 3. PERFORMANCE
- *    - Éviter les requêtes N+1
- *    - Utiliser la pagination pour les résultats volumineux
- *    - Considérer le cache pour les données fréquemment accédées
- * 
- * 4. SÉCURITÉ
- *    - Valider et nettoyer les entrées
- *    - Limiter les tailles de batch
- *    - Rate limiting (bonus)
- * 
- * 5. TESTS
- *    - Tester chaque endpoint avec Postman ou curl
- *    - Vérifier les cas limites
- *    - Mesurer les performances
- */

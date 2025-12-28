@@ -303,6 +303,7 @@
             <div class="metric-card">
                 <span class="metric-icon">⚡</span>
                 <div class="metric-title">Analyse Instantanée</div>
+                <span class="metric-icon">⚡</span>
                 <div class="metric-description">
                     Visualisez vos métriques en temps réel avec des tableaux de bord interactifs
                     et des rapports automatisés.
@@ -312,6 +313,7 @@
             <div class="metric-card">
                 <span class="metric-icon">🎯</span>
                 <div class="metric-title">Recommandations IA</div>
+                <span class="metric-icon">🎯</span>
                 <div class="metric-description">
                     Moteur d'apprentissage automatique pour des suggestions personnalisées
                     basées sur le comportement utilisateur.
@@ -321,6 +323,7 @@
             <div class="metric-card">
                 <span class="metric-icon">📊</span>
                 <div class="metric-title">Métriques Avancées</div>
+                <span class="metric-icon">📊</span>
                 <div class="metric-description">
                     KPIs détaillés, tendances prédictives et analyses démographiques
                     pour piloter vos décisions stratégiques.
