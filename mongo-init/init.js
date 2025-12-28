@@ -9,6 +9,7 @@ db.events.createIndex({ "timestamp": -1 });
 db.events.createIndex({ "videoId": 1 });
 db.events.createIndex({ "userId": 1 });
 db.events.createIndex({ "eventType": 1 });
+db.events.createIndex({ "userId": 1, "videoId": 1 }); // Composite index for recommendations
 
 // Create videos collection with indexes
 db.createCollection('videos');
