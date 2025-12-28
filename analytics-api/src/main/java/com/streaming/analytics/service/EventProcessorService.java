@@ -21,9 +21,7 @@ public class EventProcessorService {
      */
     public void processEvent(ViewEvent event) {
         // TODO: Implémenter la logique de traitement
-        // - Sauvegarder l'événement
-        // - Mettre à jour les statistiques
-        // - Calculer les métriques temps réel
+        // - Sauvegarder l'événement - Mettre à jour les statistiques
 
         eventRepository.save(event);
         updateVideoStats(event);

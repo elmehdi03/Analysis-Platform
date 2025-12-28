@@ -1,8 +1,7 @@
 /* ========================================
-   Streaming Analytics Dashboard - Styles
+   DataFlow Analytics - Styles Modernes
    ========================================
-   Ce fichier peut être utilisé comme alternative
-   au CSS intégré dans les fichiers JSP
+   Thème Cyan/Orange - Design Minimaliste
    ======================================== */
 
 /* Reset & Base */
@@ -12,10 +11,46 @@
     box-sizing: border-box;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* Couleurs principales */
+    --primary-cyan: #06b6d4;
+    --primary-orange: #f97316;
+    --accent-teal: #14b8a6;
+    --accent-amber: #fbbf24;
+
+    /* Couleurs de fond */
+    --bg-dark: #0f172a;
+    --bg-slate: #1e293b;
+    --bg-card: #334155;
+
+    /* Couleurs de texte */
+    --text-white: #f8fafc;
+    --text-gray: #cbd5e1;
+    --text-muted: #94a3b8;
+
+    /* Autres */
+    --border-color: #475569;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --error: #ef4444;
+
+    /* Espacements */
+    --spacing-sm: 12px;
+    --spacing-md: 24px;
+    --spacing-lg: 40px;
+
+    /* Border radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+}
+
 body {
-    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-    color: #e8eaf6;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-slate) 100%);
+    color: var(--text-white);
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -27,128 +62,166 @@ body {
 
 body::before {
     content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background:
+        radial-gradient(circle at 30% 40%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(249, 115, 22, 0.08) 0%, transparent 50%);
+    animation: rotate 20s linear infinite;
     pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Container principal */
+.container,
 .modern-container {
-    max-width: 900px;
+    max-width: 1200px;
     width: 100%;
-    background: rgba(30, 27, 75, 0.85);
-    border-radius: 24px;
-    padding: 50px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3),
-                0 0 80px rgba(168, 85, 247, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    text-align: center;
-    backdrop-filter: blur(30px);
-    border: 1px solid rgba(168, 85, 247, 0.2);
+    background: rgba(30, 41, 59, 0.6);
+    border-radius: var(--radius-lg);
+    padding: 80px 60px;
+    border: 1px solid var(--border-color);
     position: relative;
     z-index: 1;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
 /* Typographie */
 h1 {
-    color: #a855f7;
-    font-size: 3.5em;
-    font-weight: 800;
-    margin-bottom: 20px;
-    background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #06b6d4 100%);
+    font-size: 4.5em;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--primary-cyan) 0%, var(--primary-orange) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    letter-spacing: -1px;
+    letter-spacing: -2px;
+    line-height: 1.1;
+    margin-bottom: 16px;
 }
 
+.tagline,
 .subtitle {
-    color: #c4b5fd;
+    color: var(--text-gray);
     font-size: 1.3em;
     font-weight: 400;
-    margin-bottom: 40px;
-    letter-spacing: 0.5px;
+    margin-bottom: 24px;
+    font-family: 'Inter', sans-serif;
 }
 
+.description,
 .welcome-text {
-    font-size: 1.1em;
-    color: #d4d4d4;
+    color: var(--text-muted);
+    font-size: 1.05em;
     line-height: 1.7;
-    margin: 15px 0;
-    font-weight: 400;
+    max-width: 700px;
+    margin: 0 auto;
+    font-family: 'Inter', sans-serif;
 }
 
 /* Feature Cards Grid */
+.metrics-grid,
 .feature-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin: 40px 0;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+    margin: 50px 0;
 }
 
+.metric-card,
 .feature-card {
-    background: linear-gradient(135deg, rgba(88, 28, 135, 0.3) 0%, rgba(49, 46, 129, 0.3) 100%);
-    border-radius: 16px;
-    padding: 30px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(168, 85, 247, 0.2);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(10px);
+    background: linear-gradient(135deg, rgba(51, 65, 85, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%);
+    border-radius: var(--radius-md);
+    padding: 32px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
+.metric-card::before,
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary-cyan), var(--primary-orange));
+    transition: width 0.3s ease;
+}
+
+.metric-card:hover::before,
+.feature-card:hover::before {
+    width: 100%;
+    opacity: 0.1;
+}
+
+.metric-card:hover,
 .feature-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3),
-                0 0 60px rgba(236, 72, 153, 0.2);
-    border-color: rgba(168, 85, 247, 0.5);
-    background: linear-gradient(135deg, rgba(88, 28, 135, 0.5) 0%, rgba(49, 46, 129, 0.5) 100%);
+    transform: translateY(-8px);
+    border-color: var(--primary-cyan);
+    box-shadow: 0 20px 40px rgba(6, 182, 212, 0.2);
 }
 
+.metric-icon,
 .feature-icon {
-    font-size: 2.5em;
-    margin-bottom: 15px;
+    font-size: 3em;
+    margin-bottom: 20px;
     display: block;
+    position: relative;
+    z-index: 1;
 }
 
+.metric-title,
 .feature-title {
-    color: #e9d5ff;
-    font-size: 1.2em;
-    font-weight: 700;
-    margin-bottom: 10px;
+    color: var(--text-white);
+    font-size: 1.4em;
+    font-weight: 600;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
 }
 
+.metric-description,
 .feature-description {
-    color: #b8b8b8;
+    color: var(--text-muted);
     font-size: 0.95em;
-    line-height: 1.5;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+    font-family: 'Inter', sans-serif;
 }
 
 /* Boutons modernes */
+.primary-btn,
 .modern-button {
     display: inline-block;
-    background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
-    color: white;
-    padding: 18px 45px;
+    background: linear-gradient(90deg, var(--primary-cyan) 0%, var(--accent-teal) 100%);
+    color: var(--bg-dark);
+    padding: 18px 48px;
     text-decoration: none;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     font-size: 1.1em;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
-    margin-top: 30px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(6, 182, 212, 0.3);
     border: none;
     cursor: pointer;
     position: relative;
     overflow: hidden;
 }
 
+.primary-btn::before,
 .modern-button::before {
     content: '';
     position: absolute;
@@ -160,108 +233,87 @@ h1 {
     transition: left 0.5s;
 }
 
+.primary-btn:hover::before,
 .modern-button:hover::before {
     left: 100%;
 }
 
+.primary-btn:hover,
 .modern-button:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 15px 40px rgba(168, 85, 247, 0.5);
-    background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(6, 182, 212, 0.4);
 }
 
 /* Footer */
+.footer,
 .modern-footer {
-    margin-top: 50px;
-    padding-top: 30px;
-    border-top: 1px solid rgba(168, 85, 247, 0.2);
-    color: #a5b4fc;
+    margin-top: 60px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.footer-text {
+    color: var(--text-muted);
     font-size: 0.9em;
+    margin-bottom: 20px;
+    font-family: 'Inter', sans-serif;
 }
 
 /* Tech Stack */
+.tech-badges,
 .tech-stack {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 20px;
+    gap: var(--spacing-sm);
 }
 
+.badge,
 .tech-item {
-    background: rgba(168, 85, 247, 0.1);
-    padding: 8px 18px;
+    background: rgba(6, 182, 212, 0.1);
+    color: var(--primary-cyan);
+    padding: 8px 20px;
     border-radius: 20px;
     font-size: 0.85em;
-    color: #c4b5fd;
-    border: 1px solid rgba(168, 85, 247, 0.3);
+    font-weight: 500;
+    border: 1px solid rgba(6, 182, 212, 0.3);
     transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
 }
 
+.badge:hover,
 .tech-item:hover {
-    background: rgba(168, 85, 247, 0.2);
-    border-color: rgba(168, 85, 247, 0.5);
+    background: rgba(6, 182, 212, 0.2);
+    border-color: var(--primary-cyan);
     transform: scale(1.05);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
+    .container,
     .modern-container {
-        padding: 30px 20px;
+        padding: 50px 30px;
     }
 
     h1 {
-        font-size: 2.5em;
+        font-size: 3em;
     }
 
+    .metrics-grid,
     .feature-grid {
         grid-template-columns: 1fr;
     }
 }
 
-/* ========================================
-   Variables CSS pour personnalisation facile
-   ======================================== */
-:root {
-    /* Couleurs principales */
-    --primary-purple: #a855f7;
-    --primary-pink: #ec4899;
-    --primary-cyan: #06b6d4;
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2.2em;
+    }
 
-    /* Couleurs de fond */
-    --bg-dark-1: #0f0c29;
-    --bg-dark-2: #302b63;
-    --bg-dark-3: #24243e;
-
-    /* Couleurs de texte */
-    --text-light: #e8eaf6;
-    --text-muted: #b8b8b8;
-    --text-accent: #c4b5fd;
-
-    /* Espacements */
-    --spacing-sm: 12px;
-    --spacing-md: 20px;
-    --spacing-lg: 40px;
-
-    /* Border radius */
-    --radius-sm: 12px;
-    --radius-md: 16px;
-    --radius-lg: 24px;
+    .container,
+    .modern-container {
+        padding: 40px 20px;
+    }
 }
-
-/* ========================================
-   Exemples d'utilisation des variables CSS
-   ======================================== */
-
-/* Exemple : Utiliser les variables pour changer facilement les couleurs
-body {
-    background: linear-gradient(135deg, var(--bg-dark-1) 0%, var(--bg-dark-2) 50%, var(--bg-dark-3) 100%);
-}
-
-h1 {
-    background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-pink) 50%, var(--primary-cyan) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-*/
 

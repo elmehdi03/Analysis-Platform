@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Streaming Analytics Dashboard - Accueil</title>
+    <title>DataFlow Analytics - Intelligence Platform</title>
     <style>
         * {
             margin: 0;
@@ -12,24 +12,26 @@
             box-sizing: border-box;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
         :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --dark-bg: #0a0e27;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --text-primary: #ffffff;
-            --text-secondary: #a0aec0;
-            --shadow-color: rgba(0, 0, 0, 0.5);
+            --primary-cyan: #06b6d4;
+            --primary-orange: #f97316;
+            --accent-teal: #14b8a6;
+            --accent-amber: #fbbf24;
+            --bg-dark: #0f172a;
+            --bg-slate: #1e293b;
+            --bg-card: #334155;
+            --text-white: #f8fafc;
+            --text-gray: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: #475569;
         }
 
         body {
-            font-family: 'Poppins', 'Inter', 'Segoe UI', system-ui, sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-primary);
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-slate) 100%);
+            color: var(--text-white);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -37,373 +39,241 @@
             padding: 20px;
             position: relative;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Animated Background */
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
             background:
-                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(79, 172, 254, 0.1) 0%, transparent 40%);
-            animation: gradientShift 15s ease infinite;
+                radial-gradient(circle at 30% 40%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(249, 115, 22, 0.08) 0%, transparent 50%);
+            animation: rotate 20s linear infinite;
             pointer-events: none;
             z-index: 0;
         }
 
-        @keyframes gradientShift {
-            0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
-            50% { opacity: 0.8; transform: scale(1.1) rotate(5deg); }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        /* Floating Particles */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
+        .container {
+            max-width: 1200px;
             width: 100%;
-            height: 100%;
-            background-image:
-                radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: float 30s linear infinite;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0) translateX(0); }
-            100% { transform: translateY(-100px) translateX(50px); }
-        }
-
-        .modern-container {
-            max-width: 1100px;
-            width: 100%;
-            background: var(--card-bg);
-            border-radius: 30px;
-            padding: 60px;
-            box-shadow:
-                0 30px 90px var(--shadow-color),
-                0 0 0 1px var(--card-border),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            text-align: center;
-            backdrop-filter: blur(40px) saturate(180%);
-            border: 1px solid var(--card-border);
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 24px;
+            padding: 80px 60px;
+            border: 1px solid var(--border-color);
             position: relative;
             z-index: 1;
-            animation: fadeInUp 0.8s ease-out;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Glow Effect */
-        .modern-container::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: var(--primary-gradient);
-            border-radius: 30px;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            filter: blur(20px);
-        }
-
-        .modern-container:hover::before {
-            opacity: 0.3;
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
         }
 
         h1 {
-            font-size: 4em;
-            font-weight: 900;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f5576c 100%);
+            font-size: 4.5em;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(90deg, var(--primary-cyan) 0%, var(--primary-orange) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: -2px;
-            animation: titleGlow 3s ease-in-out infinite;
-            text-shadow: 0 0 40px rgba(102, 126, 234, 0.3);
-            position: relative;
+            line-height: 1.1;
         }
 
-        @keyframes titleGlow {
-            0%, 100% {
-                filter: brightness(1);
-                transform: scale(1);
-            }
-            50% {
-                filter: brightness(1.2);
-                transform: scale(1.01);
-            }
-        }
-
-        .subtitle {
-            color: var(--text-secondary);
-            font-size: 1.4em;
+        .tagline {
+            color: var(--text-gray);
+            font-size: 1.3em;
             font-weight: 400;
-            margin-bottom: 50px;
-            letter-spacing: 0.5px;
-            opacity: 0.9;
+            margin-bottom: 24px;
+            font-family: 'Inter', sans-serif;
         }
 
-        .welcome-text {
-            font-size: 1.1em;
-            color: var(--text-secondary);
-            line-height: 1.8;
-            margin: 20px auto;
-            max-width: 800px;
-            font-weight: 300;
+        .description {
+            color: var(--text-muted);
+            font-size: 1.05em;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto;
+            font-family: 'Inter', sans-serif;
         }
 
-        .feature-grid {
+        .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
             margin: 50px 0;
         }
 
-        .feature-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 40px 30px;
-            box-shadow:
-                0 10px 40px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--card-border);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(20px);
+        .metric-card {
+            background: linear-gradient(135deg, rgba(51, 65, 85, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-        /* Card Gradient Overlay */
-        .feature-card::before {
+        .metric-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--primary-gradient);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            z-index: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary-cyan), var(--primary-orange));
+            transition: width 0.3s ease;
         }
 
-        .feature-card:hover::before {
+        .metric-card:hover::before {
+            width: 100%;
             opacity: 0.1;
         }
 
-        .feature-card:hover {
-            transform: translateY(-15px) scale(1.03);
-            box-shadow:
-                0 25px 60px rgba(102, 126, 234, 0.4),
-                0 0 80px rgba(102, 126, 234, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            border-color: rgba(102, 126, 234, 0.5);
+        .metric-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-cyan);
+            box-shadow: 0 20px 40px rgba(6, 182, 212, 0.2);
         }
 
-        .feature-card > * {
+        .metric-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: block;
             position: relative;
             z-index: 1;
         }
 
-        .feature-icon {
-            font-size: 3em;
-            margin-bottom: 20px;
-            display: block;
-            filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.5));
-            animation: iconFloat 3s ease-in-out infinite;
+        .metric-title {
+            color: var(--text-white);
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
         }
 
-        @keyframes iconFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .feature-card:nth-child(1) .feature-icon { animation-delay: 0s; }
-        .feature-card:nth-child(2) .feature-icon { animation-delay: 0.3s; }
-        .feature-card:nth-child(3) .feature-icon { animation-delay: 0.6s; }
-
-        .feature-title {
-            color: var(--text-primary);
-            font-size: 1.3em;
-            font-weight: 700;
-            margin-bottom: 15px;
-            letter-spacing: 0.5px;
-        }
-
-        .feature-description {
-            color: var(--text-secondary);
+        .metric-description {
+            color: var(--text-muted);
             font-size: 0.95em;
             line-height: 1.6;
-            font-weight: 300;
+            position: relative;
+            z-index: 1;
+            font-family: 'Inter', sans-serif;
         }
 
-        .modern-button {
+        .cta-section {
+            text-align: center;
+            margin: 60px 0 40px 0;
+        }
+
+        .primary-btn {
             display: inline-block;
-            background: var(--primary-gradient);
-            color: white;
-            padding: 20px 50px;
+            background: linear-gradient(90deg, var(--primary-cyan) 0%, var(--accent-teal) 100%);
+            color: var(--bg-dark);
+            padding: 18px 48px;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 12px;
             font-size: 1.1em;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow:
-                0 15px 40px rgba(102, 126, 234, 0.4),
-                0 5px 15px rgba(0, 0, 0, 0.3);
-            margin-top: 40px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(6, 182, 212, 0.3);
             border: none;
             cursor: pointer;
             position: relative;
             overflow: hidden;
         }
 
-        /* Button Shine Effect */
-        .modern-button::before {
+        .primary-btn::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transition: left 0.6s;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
         }
 
-        .modern-button:hover::before {
+        .primary-btn:hover::before {
             left: 100%;
         }
 
-        .modern-button::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--secondary-gradient);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1;
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(6, 182, 212, 0.4);
         }
 
-        .modern-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow:
-                0 20px 50px rgba(102, 126, 234, 0.6),
-                0 10px 25px rgba(245, 87, 108, 0.3),
-                0 0 60px rgba(102, 126, 234, 0.4);
+        .primary-btn:active {
+            transform: translateY(0);
         }
 
-        .modern-button:hover::after {
-            opacity: 1;
-        }
-
-        .modern-button:active {
-            transform: translateY(-2px) scale(1.02);
-        }
-
-        .modern-footer {
+        .footer {
             margin-top: 60px;
-            padding-top: 40px;
-            border-top: 1px solid var(--card-border);
-            color: var(--text-secondary);
-            font-size: 0.9em;
+            padding-top: 32px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
         }
 
-        .tech-stack {
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9em;
+            margin-bottom: 20px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .tech-badges {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 25px;
+            gap: 12px;
         }
 
-        .tech-item {
-            background: var(--card-bg);
-            padding: 10px 22px;
-            border-radius: 25px;
+        .badge {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--primary-cyan);
+            padding: 8px 20px;
+            border-radius: 20px;
             font-size: 0.85em;
-            color: var(--text-primary);
-            border: 1px solid var(--card-border);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(10px);
             font-weight: 500;
-            position: relative;
-            overflow: hidden;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
         }
 
-        .tech-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--accent-gradient);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        .badge:hover {
+            background: rgba(6, 182, 212, 0.2);
+            border-color: var(--primary-cyan);
+            transform: scale(1.05);
         }
 
-        .tech-item:hover::before {
-            opacity: 0.2;
-        }
-
-        .tech-item:hover {
-            border-color: rgba(79, 172, 254, 0.5);
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(79, 172, 254, 0.3);
-        }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
-            .modern-container {
-                padding: 40px 25px;
-                border-radius: 25px;
+            .container {
+                padding: 50px 30px;
             }
 
             h1 {
-                font-size: 2.8em;
-                letter-spacing: -1px;
+                font-size: 3em;
             }
 
-            .subtitle {
+            .tagline {
                 font-size: 1.1em;
             }
 
-            .feature-grid {
+            .metrics-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .modern-button {
-                padding: 16px 40px;
-                font-size: 1em;
             }
         }
 
@@ -412,50 +282,63 @@
                 font-size: 2.2em;
             }
 
-            .modern-container {
-                padding: 30px 20px;
+            .container {
+                padding: 40px 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="modern-container">
-        <h1 data-text="STREAMING ANALYTICS">Streaming Analytics</h1>
-        <p class="subtitle">⚡ FUTURISTIC BIG DATA ANALYTICS PLATFORM ⚡</p>
+    <div class="container">
+        <div class="header">
+            <h1>DataFlow Analytics</h1>
+            <p class="tagline">Intelligence Plateforme en Temps Réel</p>
+            <p class="description">
+                Transformez vos données en insights actionnables. Analysez, visualisez et optimisez
+                vos contenus streaming avec notre solution d'intelligence artificielle avancée.
+            </p>
+        </div>
 
-        <p class="welcome-text">Welcome to the next generation of streaming analytics. Monitor real-time performance, analyze user behavior, and unlock powerful insights from your video content with cutting-edge technology.</p>
-
-        <div class="feature-grid">
-            <div class="feature-card">
-                <span class="feature-icon">📊</span>
-                <div class="feature-title">REAL-TIME ANALYTICS</div>
-                <div class="feature-description">Monitor live streaming metrics, user engagement, and content performance with instant updates powered by advanced algorithms.</div>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <span class="metric-icon">⚡</span>
+                <div class="metric-title">Analyse Instantanée</div>
+                <div class="metric-description">
+                    Visualisez vos métriques en temps réel avec des tableaux de bord interactifs
+                    et des rapports automatisés.
+                </div>
             </div>
 
-            <div class="feature-card">
-                <span class="feature-icon">🎯</span>
-                <div class="feature-title">SMART AI ENGINE</div>
-                <div class="feature-description">AI-powered content suggestions based on deep learning, user preferences and sophisticated viewing pattern analysis.</div>
+            <div class="metric-card">
+                <span class="metric-icon">🎯</span>
+                <div class="metric-title">Recommandations IA</div>
+                <div class="metric-description">
+                    Moteur d'apprentissage automatique pour des suggestions personnalisées
+                    basées sur le comportement utilisateur.
+                </div>
             </div>
 
-            <div class="feature-card">
-                <span class="feature-icon">📈</span>
-                <div class="feature-title">PERFORMANCE INSIGHTS</div>
-                <div class="feature-description">Comprehensive analytics on video popularity, user demographics, engagement metrics and predictive trends.</div>
+            <div class="metric-card">
+                <span class="metric-icon">📊</span>
+                <div class="metric-title">Métriques Avancées</div>
+                <div class="metric-description">
+                    KPIs détaillés, tendances prédictives et analyses démographiques
+                    pour piloter vos décisions stratégiques.
+                </div>
             </div>
         </div>
 
-        <div>
-            <a href="dashboard" class="modern-button">⚡ ENTER DASHBOARD ⚡</a>
+        <div class="cta-section">
+            <a href="dashboard" class="primary-btn">Accéder à la Console</a>
         </div>
 
-        <div class="modern-footer">
-            <p>Advanced Streaming Analytics Platform - 2025</p>
-            <div class="tech-stack">
-                <span class="tech-item">Jakarta EE</span>
-                <span class="tech-item">MongoDB</span>
-                <span class="tech-item">Docker</span>
-                <span class="tech-item">Big Data</span>
+        <div class="footer">
+            <p class="footer-text">DataFlow Analytics Platform © 2025</p>
+            <div class="tech-badges">
+                <span class="badge">Jakarta EE</span>
+                <span class="badge">MongoDB Atlas</span>
+                <span class="badge">Docker</span>
+                <span class="badge">Machine Learning</span>
             </div>
         </div>
     </div>

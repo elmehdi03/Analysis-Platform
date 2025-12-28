@@ -2,9 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Streaming Analytics Dashboard</title>
+    <title>DataFlow Analytics - Console</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
         * {
             margin: 0;
@@ -13,131 +13,132 @@
         }
 
         :root {
-            /* Couleurs principales - Thème unifié */
-            --primary-purple: #a855f7;
-            --primary-pink: #ec4899;
             --primary-cyan: #06b6d4;
-
-            /* Couleurs de fond */
-            --bg-dark-1: #0f0c29;
-            --bg-dark-2: #302b63;
-            --bg-dark-3: #24243e;
-
-            /* Couleurs de carte */
-            --card-bg: rgba(30, 27, 75, 0.85);
-            --card-border: rgba(168, 85, 247, 0.2);
-
-            /* Couleurs de texte */
-            --text-primary: #e8eaf6;
-            --text-secondary: #c4b5fd;
-            --text-muted: #b8b8b8;
-
-            /* Espacements */
-            --spacing-sm: 12px;
-            --spacing-md: 20px;
-            --spacing-lg: 40px;
+            --primary-orange: #f97316;
+            --accent-teal: #14b8a6;
+            --accent-amber: #fbbf24;
+            --bg-dark: #0f172a;
+            --bg-slate: #1e293b;
+            --bg-card: #334155;
+            --text-white: #f8fafc;
+            --text-gray: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: #475569;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
         }
 
         body {
-            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(135deg, var(--bg-dark-1) 0%, var(--bg-dark-2) 50%, var(--bg-dark-3) 100%);
-            color: var(--text-primary);
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-slate) 100%);
+            color: var(--text-white);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             padding: 20px;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* Background Effect - Style unifié */
         body::before {
             content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background:
+                radial-gradient(circle at 30% 40%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(249, 115, 22, 0.08) 0%, transparent 50%);
+            animation: rotate 20s linear infinite;
             pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .dashboard-container {
-            max-width: 1200px;
-            width: 100%;
-            background: var(--card-bg);
-            border-radius: 24px;
-            padding: 50px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3),
-                        0 0 80px rgba(168, 85, 247, 0.1),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            text-align: center;
-            backdrop-filter: blur(30px);
-            border: 1px solid var(--card-border);
+            max-width: 1400px;
+            margin: 0 auto;
             position: relative;
             z-index: 1;
         }
 
-        /* Glow Effect - Style unifié */
-        .dashboard-container::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-pink) 100%);
-            border-radius: 24px;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            filter: blur(20px);
-        }
-
-        .dashboard-container:hover::before {
-            opacity: 0.3;
-        }
-
-
         .dashboard-header {
-            margin-bottom: 50px;
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 16px;
+            padding: 32px 40px;
+            margin-bottom: 32px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
-        .dashboard-header h1 {
-            font-size: 3.5em;
-            font-weight: 800;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-pink) 50%, var(--primary-cyan) 100%);
+        .header-title {
+            flex: 1;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary-cyan) 0%, var(--primary-orange) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            letter-spacing: -1px;
+            margin-bottom: 8px;
         }
 
-        .dashboard-header p {
-            color: var(--text-secondary);
-            font-size: 1.3em;
-            font-weight: 400;
-            letter-spacing: 0.5px;
+        .header-subtitle {
+            color: var(--text-muted);
+            font-size: 1em;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: rgba(51, 65, 85, 0.6);
+            color: var(--text-white);
+            font-size: 0.9em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .action-btn:hover {
+            background: rgba(6, 182, 212, 0.2);
+            border-color: var(--primary-cyan);
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
         }
 
         .stat-card {
-            background: linear-gradient(135deg, rgba(88, 28, 135, 0.3) 0%, rgba(49, 46, 129, 0.3) 100%);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            border: 1px solid var(--card-border);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(10px);
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 12px;
+            padding: 28px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
@@ -147,257 +148,222 @@
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-pink) 100%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            z-index: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary-cyan), var(--primary-orange));
+            transition: width 0.3s ease;
         }
 
         .stat-card:hover::before {
+            width: 100%;
             opacity: 0.1;
         }
 
         .stat-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3),
-                        0 0 60px rgba(236, 72, 153, 0.2);
-            border-color: rgba(168, 85, 247, 0.5);
-            background: linear-gradient(135deg, rgba(88, 28, 135, 0.5) 0%, rgba(49, 46, 129, 0.5) 100%);
+            transform: translateY(-4px);
+            border-color: var(--primary-cyan);
+            box-shadow: 0 12px 32px rgba(6, 182, 212, 0.2);
         }
 
-        .stat-card > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        .stat-number {
-            font-size: 3.5em;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-pink) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .stat-icon {
+            font-size: 2em;
             margin-bottom: 12px;
+            display: block;
             position: relative;
             z-index: 1;
         }
 
         .stat-label {
-            font-size: 1em;
-            color: var(--text-secondary);
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
+            color: var(--text-muted);
+            font-size: 0.9em;
+            margin-bottom: 8px;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .stat-number {
+            font-size: 2.8em;
+            font-weight: 700;
+            color: var(--text-white);
             position: relative;
             z-index: 1;
         }
 
+        .stat-trend {
+            color: var(--success);
+            font-size: 0.85em;
+            margin-top: 8px;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .stat-trend.down {
+            color: var(--error);
+        }
+
         .content-section {
-            margin-top: 50px;
-            text-align: left;
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(20px);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 16px;
         }
 
         .section-title {
-            font-size: 2em;
-            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-pink) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 30px;
-            font-weight: 800;
-            letter-spacing: -1px;
-            text-align: center;
+            font-size: 1.6em;
+            font-weight: 600;
+            color: var(--text-white);
+        }
+
+        .section-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .control-btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: rgba(51, 65, 85, 0.4);
+            color: var(--text-gray);
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background: rgba(6, 182, 212, 0.2);
+            border-color: var(--primary-cyan);
+            color: var(--text-white);
+        }
+
+        .control-btn.active {
+            background: var(--primary-cyan);
+            border-color: var(--primary-cyan);
+            color: var(--bg-dark);
         }
 
         .data-table {
             width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin-top: 20px;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3),
-                        0 0 0 1px var(--card-border);
-            background: rgba(30, 27, 75, 0.5);
-            backdrop-filter: blur(20px);
+            border-collapse: collapse;
+            font-family: 'Inter', sans-serif;
         }
 
-        .data-table th,
-        .data-table td {
-            padding: 20px 30px;
-            text-align: left;
+        .data-table thead {
+            background: rgba(51, 65, 85, 0.4);
+            border-bottom: 2px solid var(--border-color);
         }
 
         .data-table th {
-            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-pink) 100%);
-            color: white;
-            font-weight: 700;
-            font-size: 0.95em;
+            text-align: left;
+            padding: 16px;
+            color: var(--text-gray);
+            font-weight: 600;
+            font-size: 0.9em;
             text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .data-table th:first-child {
-            border-top-left-radius: 16px;
-        }
-
-        .data-table th:last-child {
-            border-top-right-radius: 16px;
-        }
-
-        .data-table tbody tr {
-            border-bottom: 1px solid var(--card-border);
-            transition: all 0.3s ease;
-        }
-
-        .data-table tbody tr:last-child {
-            border-bottom: none;
-        }
-
-        .data-table tbody tr:nth-child(even) {
-            background-color: rgba(168, 85, 247, 0.05);
-        }
-
-        .data-table tbody tr:hover {
-            background: rgba(168, 85, 247, 0.15);
-            transform: scale(1.01);
-            box-shadow: 0 5px 20px rgba(168, 85, 247, 0.2);
+            letter-spacing: 0.5px;
         }
 
         .data-table td {
-            color: var(--text-primary);
-            font-weight: 400;
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-white);
         }
 
-
-        /* Navigation Section */
-        .navigation-section {
-            margin-top: 50px;
-            padding-top: 40px;
-            border-top: 1px solid var(--card-border);
-            text-align: center;
+        .data-table tbody tr {
+            transition: all 0.2s ease;
         }
 
-        .nav-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
+        .data-table tbody tr:hover {
+            background: rgba(6, 182, 212, 0.05);
         }
 
-        .nav-button {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-pink) 100%);
-            color: white;
-            padding: 18px 45px;
-            text-decoration: none;
+        .status-badge {
+            padding: 4px 12px;
             border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-badge.success {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .status-badge.warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .status-badge.error {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-state-icon {
+            font-size: 4em;
+            margin-bottom: 16px;
+            opacity: 0.3;
+        }
+
+        .empty-state-text {
             font-size: 1.1em;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
-            border: none;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
+            margin-bottom: 8px;
         }
 
-        .nav-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
+        .empty-state-subtext {
+            font-size: 0.9em;
+            color: var(--text-muted);
         }
 
-        .nav-button:hover::before {
-            left: 100%;
-        }
-
-        .nav-button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(168, 85, 247, 0.5);
-            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--primary-purple) 100%);
-        }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
-            .dashboard-container {
-                padding: 40px 30px;
+            .dashboard-header {
+                padding: 24px 28px;
+            }
+
+            h1 {
+                font-size: 2em;
             }
 
             .stats-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
             }
 
             .content-section {
-                margin-top: 40px;
+                padding: 24px;
             }
 
-            .navigation-section {
-                margin-top: 40px;
-                padding-top: 30px;
-            }
-
-            .nav-buttons {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .nav-button {
-                width: 100%;
-                padding: 14px 30px;
-            }
-
-            .dashboard-header h1 {
-                font-size: 2.5em;
-                letter-spacing: -1px;
-            }
-
-            .dashboard-header p {
-                font-size: 1.1em;
-            }
-
-            .section-title {
-                font-size: 1.8em;
+            .data-table {
+                font-size: 0.9em;
             }
 
             .data-table th,
             .data-table td {
-                padding: 12px 15px;
-                font-size: 0.9em;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .dashboard-container {
-                padding: 30px 20px;
-            }
-
-            .dashboard-header h1 {
-                font-size: 2em;
-            }
-
-            .stat-number {
-                font-size: 2.8em;
-            }
-
-            .nav-button {
-                font-size: 0.9em;
-                padding: 12px 25px;
-                letter-spacing: 1px;
-            }
-
-            .section-title {
-                font-size: 1.5em;
+                padding: 12px;
             }
         }
     </style>
@@ -405,53 +371,126 @@
 <body>
     <div class="dashboard-container">
         <div class="dashboard-header">
-            <h1>📊 ANALYTICS DASHBOARD</h1>
-            <p>Real-Time Streaming Insights & Performance Metrics</p>
+            <div class="header-title">
+                <h1>DataFlow Console</h1>
+                <p class="header-subtitle">Supervision en Temps Réel</p>
+            </div>
+            <div class="header-actions">
+                <a href="<c:url value='/'/>" class="action-btn">Retour</a>
+                <button class="action-btn" onclick="location.reload()">Actualiser</button>
+            </div>
         </div>
 
         <div class="stats-grid">
             <div class="stat-card">
+                <span class="stat-icon">🎬</span>
+                <div class="stat-label">Total Vidéos</div>
                 <div class="stat-number">${totalVideos}</div>
-                <div class="stat-label">Total Videos</div>
+                <div class="stat-trend">+12% ce mois</div>
             </div>
             <div class="stat-card">
+                <span class="stat-icon">👥</span>
+                <div class="stat-label">Utilisateurs Actifs</div>
                 <div class="stat-number">${totalUsers}</div>
-                <div class="stat-label">Active Users</div>
+                <div class="stat-trend">+8% ce mois</div>
             </div>
             <div class="stat-card">
+                <span class="stat-icon">👁️</span>
+                <div class="stat-label">Vues Totales</div>
                 <div class="stat-number">${totalViews}</div>
-                <div class="stat-label">Total Views</div>
+                <div class="stat-trend">+24% ce mois</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">⚡</span>
+                <div class="stat-label">Taux d'Engagement</div>
+                <div class="stat-number">87%</div>
+                <div class="stat-trend">+5% ce mois</div>
             </div>
         </div>
 
         <div class="content-section">
-            <h2 class="section-title">📈 Top Performing Videos</h2>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Video ID</th>
-                        <th>Title</th>
-                        <th>Views</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="video" items="${topVideos}">
-                        <tr>
-                            <td>${video.videoId}</td>
-                            <td>${video.title}</td>
-                            <td>${video.views}</td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+            <div class="section-header">
+                <h2 class="section-title">Contenus Populaires</h2>
+                <div class="section-controls">
+                    <button class="control-btn active">Aujourd'hui</button>
+                    <button class="control-btn">Semaine</button>
+                    <button class="control-btn">Mois</button>
+                </div>
+            </div>
+
+            <c:choose>
+                <c:when test="${not empty topVideos}">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID Vidéo</th>
+                                <th>Titre</th>
+                                <th>Vues</th>
+                                <th>Engagement</th>
+                                <th>Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${topVideos}" var="video">
+                                <tr>
+                                    <td>${video.id}</td>
+                                    <td>${video.title}</td>
+                                    <td>${video.views}</td>
+                                    <td>${video.engagement}%</td>
+                                    <td>
+                                        <span class="status-badge success">En ligne</span>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </c:when>
+                <c:otherwise>
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📊</div>
+                        <div class="empty-state-text">Aucune donnée disponible</div>
+                        <div class="empty-state-subtext">Les métriques s'afficheront une fois que les données seront collectées</div>
+                    </div>
+                </c:otherwise>
+            </c:choose>
         </div>
 
-        <div class="navigation-section">
-            <div class="nav-buttons">
-                <a href="/analytics-dashboard/" class="nav-button">🏠 HOME</a>
-                <a href="stats" class="nav-button">📊 Statistics</a>
-                <a href="/analytics-api/api/v1/analytics/health" class="nav-button" target="_blank">🔍 API Health</a>
+        <div class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">Activité Récente</h2>
             </div>
+
+            <c:choose>
+                <c:when test="${not empty recentActivity}">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Utilisateur</th>
+                                <th>Action</th>
+                                <th>Contenu</th>
+                                <th>Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${recentActivity}" var="activity">
+                                <tr>
+                                    <td>${activity.userId}</td>
+                                    <td>${activity.action}</td>
+                                    <td>${activity.videoTitle}</td>
+                                    <td>${activity.timestamp}</td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </c:when>
+                <c:otherwise>
+                    <div class="empty-state">
+                        <div class="empty-state-icon">⏱️</div>
+                        <div class="empty-state-text">Aucune activité récente</div>
+                        <div class="empty-state-subtext">L'activité des utilisateurs apparaîtra ici</div>
+                    </div>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </body>

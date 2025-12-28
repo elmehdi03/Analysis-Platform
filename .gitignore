@@ -93,6 +93,8 @@ GUIDE_COMPLET.md
 GUIDE_DEMARRAGE.md
 RESUME_ACTIONS.md
 RECAPITULATIF_FINAL.md
+RECONSRTUTION_COMPLETE.md
+
 
 ### Backup Files ###
 # Fichiers de sauvegarde et scripts redondants
@@ -105,3 +107,7 @@ LISEZ_MOI.txt
 ### Assets Folder ###
 # Dossier d'exemples et fichiers de référence (optionnel)
 # assets/
+
+events_100k.json
+videos_catalog.json
+

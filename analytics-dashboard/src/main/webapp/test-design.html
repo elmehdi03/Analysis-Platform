@@ -98,81 +98,80 @@
             font-size: 1.1em;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(6, 182, 212, 0.3);
             margin: 10px;
         }
 
         .button:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(168, 85, 247, 0.5);
-            background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(6, 182, 212, 0.4);
         }
 
         .check-list {
             text-align: left;
             margin: 30px 0;
             padding: 20px;
-            background: rgba(168, 85, 247, 0.1);
+            background: rgba(6, 182, 212, 0.1);
             border-radius: 12px;
-            border-left: 4px solid #a855f7;
+            border-left: 4px solid #06b6d4;
         }
 
         .check-list li {
             margin: 10px 0;
-            color: #c4b5fd;
+            color: #cbd5e1;
+            font-family: 'Inter', sans-serif;
         }
 
         .success {
-            color: #4ade80;
+            color: #10b981;
             font-weight: bold;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>✅ NOUVEAU DESIGN ACTIF!</h1>
+        <h1>DataFlow Design Test</h1>
 
         <div class="status">
-            🎨 Design Unifié Version 2.0 🎨
+            Nouveau Design Cyan/Orange Actif
         </div>
 
         <div class="info">
-            <p><strong class="success">SI VOUS VOYEZ CETTE PAGE CORRECTEMENT:</strong></p>
-            <p>Le serveur utilise bien le nouveau code et le nouveau design fonctionne!</p>
+            <p><strong class="success">SI VOUS VOYEZ CETTE PAGE :</strong></p>
+            <p>Le serveur utilise bien le nouveau code avec le design cyan/orange !</p>
         </div>
 
         <div class="check-list">
             <p><strong>Vérifications:</strong></p>
             <ul>
-                <li>✅ Fond: Violet dégradé (pas noir)</li>
-                <li>✅ Titre: Gradient coloré (purple → pink → cyan)</li>
-                <li>✅ Police: Inter (moderne)</li>
-                <li>✅ Carte: Semi-transparente avec blur</li>
-                <li>✅ Boutons: Gradient purple → pink</li>
+                <li>✅ Fond: Dégradé slate/dark (pas violet)</li>
+                <li>✅ Titre: Gradient cyan → orange</li>
+                <li>✅ Police: Space Grotesk + Inter</li>
+                <li>✅ Carte: Semi-transparente slate</li>
+                <li>✅ Boutons: Gradient cyan → teal</li>
+                <li>✅ Bordures: Cyan au lieu de violet</li>
             </ul>
         </div>
 
         <div class="info">
             <p>Si vous voyez tout cela correctement, alors:</p>
-            <p><strong>Le problème sur /dashboard est uniquement le CACHE du navigateur!</strong></p>
+            <p><strong>Le nouveau design fonctionne parfaitement !</strong></p>
         </div>
 
-        <a href="dashboard" class="button">Aller au Dashboard</a>
+        <a href="dashboard" class="button">Console Dashboard</a>
         <a href="./" class="button">Page d'accueil</a>
-        <a href="stats" class="button">Statistiques</a>
 
         <div class="timestamp">
             Généré le: <script>document.write(new Date().toLocaleString('fr-FR'));</script>
         </div>
 
-        <div class="info" style="margin-top: 40px; font-size: 0.9em; color: #a0a0a0;">
-            <p><strong>Si cette page s'affiche correctement mais /dashboard non:</strong></p>
-            <p>1. Fermez TOUS les navigateurs</p>
-            <p>2. Rouvrez en mode INCOGNITO</p>
-            <p>3. Allez directement sur /dashboard</p>
-            <p>4. Si ça ne marche toujours pas, essayez un autre navigateur</p>
+        <div class="info" style="margin-top: 40px; font-size: 0.9em; color: #94a3b8;">
+            <p><strong>Si une autre page garde l'ancien design:</strong></p>
+            <p>1. Videz le cache : Ctrl + Shift + R</p>
+            <p>2. Ou utilisez le mode navigation privée</p>
+            <p>3. Le design cyan/orange devrait apparaître</p>
         </div>
     </div>
 </body>
