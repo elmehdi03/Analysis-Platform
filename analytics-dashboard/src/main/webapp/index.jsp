@@ -343,6 +343,9 @@
                 <a href="recommendations.jsp" class="primary-btn"
                     style="margin-left: 16px; background: linear-gradient(90deg, #f97316 0%, #fbbf24 100%); box-shadow: 0 8px 24px rgba(249, 115, 22, 0.3);">🎯
                     Recommandations IA</a>
+                <a href="stats.jsp" class="primary-btn"
+                    style="margin-left: 16px; background: linear-gradient(90deg, #8b5cf6 0%, #ec4899 100%); box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);">📊
+                    Statistiques</a>
             </div>
 
             <div class="footer">

@@ -2,12 +2,15 @@ package com.streaming.analytics.api;
 
 import com.streaming.analytics.model.Recommendation;
 import com.streaming.analytics.model.ViewEvent;
+import com.streaming.analytics.model.VideoStats;
+import com.streaming.analytics.service.EventProcessorService;
 import com.streaming.analytics.service.RecommendationService;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * API REST pour l'ingestion et l'analyse des événements de visualisation
@@ -28,9 +31,11 @@ public class AnalyticsResource {
 
     // Service de recommandation (instancié manuellement car CDI non configuré)
     private final RecommendationService recommendationService;
+    private final EventProcessorService eventProcessorService;
 
     public AnalyticsResource() {
         this.recommendationService = new RecommendationService();
+        this.eventProcessorService = new EventProcessorService();
     }
 
     /**
@@ -224,8 +229,7 @@ public class AnalyticsResource {
     @Path("/events")
     public Response ingestEvent(ViewEvent event) {
         try {
-            // TODO: Implémenter l'ingestion
-            // Utiliser eventProcessor.processEvent(event)
+            eventProcessorService.processEvent(event);
 
             return Response.status(Response.Status.CREATED)
                     .entity("{\"message\":\"Event ingested successfully\"}")
@@ -253,12 +257,12 @@ public class AnalyticsResource {
     @POST
     @Path("/events/batch")
     public Response ingestBatch(List<ViewEvent> events) {
-        // TODO: Implémenter l'ingestion batch
-        // Utiliser eventProcessor.processBatch(events)
-
-        return Response.status(Response.Status.NOT_IMPLEMENTED)
-                .entity("{\"error\":\"À implémenter\"}")
-                .build();
+        try {
+            eventProcessorService.processBatch(events);
+            return Response.ok("{\"message\":\"Batch processed\", \"count\":" + events.size() + "}").build();
+        } catch (Exception e) {
+            return Response.serverError().entity("{\"error\":\"" + e.getMessage() + "\"}").build();
+        }
     }
 
     /**
@@ -270,12 +274,12 @@ public class AnalyticsResource {
     @GET
     @Path("/videos/top")
     public Response getTopVideos(@QueryParam("limit") @DefaultValue("10") int limit) {
-        // TODO: Récupérer les top vidéos
-        // Utiliser eventProcessor.getTopVideos(limit)
-
-        return Response.status(Response.Status.NOT_IMPLEMENTED)
-                .entity("{\"error\":\"À implémenter\"}")
-                .build();
+        try {
+            List<VideoStats> stats = eventProcessorService.getTopVideos(limit);
+            return Response.ok(stats).build();
+        } catch (Exception e) {
+            return Response.serverError().entity("{\"error\":\"" + e.getMessage() + "\"}").build();
+        }
     }
 
     /**
@@ -287,11 +291,30 @@ public class AnalyticsResource {
     @GET
     @Path("/videos/{videoId}/stats")
     public Response getVideoStats(@PathParam("videoId") String videoId) {
-        // TODO: Récupérer les stats pour cette vidéo
+        try {
+            VideoStats stats = eventProcessorService.getVideoStats(videoId);
+            if (stats == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            return Response.ok(stats).build();
+        } catch (Exception e) {
+            return Response.serverError().entity("{\"error\":\"" + e.getMessage() + "\"}").build();
+        }
+    }
 
-        return Response.status(Response.Status.NOT_IMPLEMENTED)
-                .entity("{\"error\":\"À implémenter\"}")
-                .build();
+    /**
+     * ENDPOINT 6 : Statistiques par catégorie (pour graphiques)
+     * GET /api/v1/analytics/categories/stats
+     */
+    @GET
+    @Path("/categories/stats")
+    public Response getCategoryStats() {
+        try {
+            Map<String, Integer> stats = eventProcessorService.getCategoryStats();
+            return Response.ok(stats).build();
+        } catch (Exception e) {
+            return Response.serverError().entity("{\"error\":\"" + e.getMessage() + "\"}").build();
+        }
     }
 
     /**
