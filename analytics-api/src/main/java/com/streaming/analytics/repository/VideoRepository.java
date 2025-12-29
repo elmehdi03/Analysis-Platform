@@ -153,4 +153,11 @@ public class VideoRepository {
         video.setLikes(doc.getInteger("likes", 0));
         return video;
     }
+
+    /**
+     * Compte le nombre total de vidéos
+     */
+    public long count() {
+        return collection.countDocuments();
+    }
 }

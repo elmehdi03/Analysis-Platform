@@ -310,7 +310,6 @@
                 <div class="metric-card">
                     <span class="metric-icon">⚡</span>
                     <div class="metric-title">Analyse Instantanée</div>
-                    <span class="metric-icon">⚡</span>
                     <div class="metric-description">
                         Visualisez vos métriques en temps réel avec des tableaux de bord interactifs
                         et des rapports automatisés.
@@ -320,7 +319,6 @@
                 <div class="metric-card">
                     <span class="metric-icon">🎯</span>
                     <div class="metric-title">Recommandations IA</div>
-                    <span class="metric-icon">🎯</span>
                     <div class="metric-description">
                         Moteur d'apprentissage automatique pour des suggestions personnalisées
                         basées sur le comportement utilisateur.
@@ -330,7 +328,6 @@
                 <div class="metric-card">
                     <span class="metric-icon">📊</span>
                     <div class="metric-title">Métriques Avancées</div>
-                    <span class="metric-icon">📊</span>
                     <div class="metric-description">
                         KPIs détaillés, tendances prédictives et analyses démographiques
                         pour piloter vos décisions stratégiques.
@@ -339,7 +336,7 @@
             </div>
 
             <div class="cta-section">
-                <a href="dashboard" class="primary-btn">Accéder à la Console</a>
+                <a href="dashboard.jsp" class="primary-btn">Accéder à la Console</a>
                 <a href="recommendations.jsp" class="primary-btn"
                     style="margin-left: 16px; background: linear-gradient(90deg, #f97316 0%, #fbbf24 100%); box-shadow: 0 8px 24px rgba(249, 115, 22, 0.3);">🎯
                     Recommandations IA</a>

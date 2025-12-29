@@ -335,6 +335,21 @@ public class AnalyticsResource {
     }
 
     /**
+     * ENDPOINT 8 : Résumé global (Pour Landing Page)
+     * GET /api/v1/analytics/summary
+     */
+    @GET
+    @Path("/summary")
+    public Response getSummary() {
+        try {
+            Map<String, Long> stats = eventProcessorService.getSummaryStats();
+            return Response.ok(stats).build();
+        } catch (Exception e) {
+            return Response.serverError().entity("{\"error\":\"" + e.getMessage() + "\"}").build();
+        }
+    }
+
+    /**
      * ENDPOINT 5 : Recommandations personnalisées
      * GET /api/v1/analytics/users/{userId}/recommendations?limit=5
      * 

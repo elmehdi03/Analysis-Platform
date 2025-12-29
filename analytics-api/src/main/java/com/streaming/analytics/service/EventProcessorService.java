@@ -179,4 +179,14 @@ public class EventProcessorService {
 
         return stats;
     }
+
+    /**
+     * Récupère les statistiques globales (Total Vidéos, Total Événements)
+     */
+    public Map<String, Long> getSummaryStats() {
+        Map<String, Long> stats = new java.util.HashMap<>();
+        stats.put("totalVideos", videoRepository.count());
+        stats.put("totalEvents", eventRepository.count());
+        return stats;
+    }
 }

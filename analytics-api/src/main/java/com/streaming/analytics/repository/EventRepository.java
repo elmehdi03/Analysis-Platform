@@ -128,10 +128,15 @@ public class EventRepository {
         event.setUserId(doc.getString("userId"));
         event.setVideoId(doc.getString("videoId"));
         event.setTimestamp(doc.getString("timestamp"));
-        event.setAction(doc.getString("action"));
-        event.setDuration(doc.getInteger("duration"));
         event.setQuality(doc.getString("quality"));
         event.setDeviceType(doc.getString("deviceType"));
         return event;
+    }
+
+    /**
+     * Compte le nombre total d'événements
+     */
+    public long count() {
+        return collection.countDocuments();
     }
 }
