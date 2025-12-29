@@ -1,80 +1,42 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="true" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
     <!DOCTYPE html>
     <html lang="fr">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Recommandations - DataFlow Analytics</title>
+        <title>Recommandations IA - DataFlow Analytics</title>
         <style>
-            @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
-
             * {
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
             }
 
+            @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
             :root {
                 --primary-cyan: #06b6d4;
                 --primary-orange: #f97316;
                 --accent-teal: #14b8a6;
-                --accent-amber: #fbbf24;
                 --bg-dark: #0f172a;
                 --bg-slate: #1e293b;
-                --bg-card: #334155;
                 --text-white: #f8fafc;
                 --text-gray: #cbd5e1;
                 --text-muted: #94a3b8;
                 --border-color: #475569;
             }
 
-            /* Global Navigation Styles */
-            .navbar {
-                position: fixed;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: rgba(30, 41, 59, 0.7);
-                backdrop-filter: blur(12px);
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                border-radius: 100px;
-                padding: 8px 16px;
-                display: flex;
-                gap: 8px;
-                z-index: 1000;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            }
-
-            .nav-link {
-                color: #94a3b8;
-                text-decoration: none;
-                font-size: 0.9em;
-                font-weight: 500;
-                padding: 8px 20px;
-                border-radius: 100px;
-                transition: all 0.3s ease;
-            }
-
-            .nav-link:hover {
-                color: #ffffff;
-                background: rgba(255, 255, 255, 0.05);
-            }
-
-            .nav-link.active {
-                color: #ffffff;
-                background: linear-gradient(90deg, #06b6d4 0%, #14b8a6 100%);
-                box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
-            }
-
             body {
-                padding-top: 80px;
-                /* Space for navbar */
                 font-family: 'Space Grotesk', 'Inter', sans-serif;
                 background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-slate) 100%);
                 color: var(--text-white);
                 min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 padding: 20px;
+                padding-top: 100px;
                 position: relative;
                 overflow-x: hidden;
             }
@@ -91,7 +53,7 @@
                     radial-gradient(circle at 70% 60%, rgba(249, 115, 22, 0.08) 0%, transparent 50%);
                 animation: rotate 20s linear infinite;
                 pointer-events: none;
-                z-index: -1;
+                z-index: 0;
             }
 
             @keyframes rotate {
@@ -106,108 +68,77 @@
 
             .container {
                 max-width: 1200px;
-                margin: 0 auto;
-                position: relative;
-                z-index: 1;
-            }
-
-            .header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 40px;
-                padding: 20px 0;
-            }
-
-            .logo {
-                font-size: 1.8em;
-                font-weight: 700;
-                background: linear-gradient(90deg, var(--primary-cyan) 0%, var(--primary-orange) 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-                text-decoration: none;
-            }
-
-            .back-btn {
-                display: inline-flex;
-                align-items: center;
-                gap: 8px;
-                background: rgba(6, 182, 212, 0.1);
-                color: var(--primary-cyan);
-                padding: 12px 24px;
-                text-decoration: none;
-                border-radius: 8px;
-                font-weight: 500;
-                border: 1px solid rgba(6, 182, 212, 0.3);
-                transition: all 0.3s ease;
-            }
-
-            .back-btn:hover {
-                background: rgba(6, 182, 212, 0.2);
-                border-color: var(--primary-cyan);
-                transform: translateX(-4px);
-            }
-
-            .main-card {
+                width: 100%;
                 background: rgba(30, 41, 59, 0.6);
                 border-radius: 24px;
-                padding: 50px;
+                padding: 60px;
                 border: 1px solid var(--border-color);
+                position: relative;
+                z-index: 1;
                 backdrop-filter: blur(20px);
                 box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
             }
 
+            .header {
+                text-align: center;
+                margin-bottom: 40px;
+            }
+
             h1 {
-                font-size: 2.5em;
+                font-size: 3.5em;
                 font-weight: 700;
                 margin-bottom: 16px;
                 background: linear-gradient(90deg, var(--primary-cyan) 0%, var(--primary-orange) 100%);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
-                text-align: center;
+                letter-spacing: -1px;
             }
 
-            .description {
-                color: var(--text-muted);
-                text-align: center;
-                margin-bottom: 40px;
-                font-family: 'Inter', sans-serif;
+            .tagline {
+                color: var(--text-gray);
+                font-size: 1.2em;
+                margin-bottom: 30px;
             }
 
             .search-section {
                 display: flex;
-                gap: 16px;
-                margin-bottom: 40px;
-                flex-wrap: wrap;
+                gap: 20px;
+                margin-bottom: 50px;
+                background: rgba(15, 23, 42, 0.4);
+                padding: 30px;
+                border-radius: 20px;
+                border: 1px solid var(--border-color);
+                align-items: flex-end;
                 justify-content: center;
+                flex-wrap: wrap;
             }
 
             .input-group {
                 flex: 1;
-                min-width: 250px;
-                max-width: 400px;
+                min-width: 200px;
+                max-width: 300px;
             }
 
             .input-group label {
                 display: block;
-                color: var(--text-gray);
-                font-size: 0.9em;
-                margin-bottom: 8px;
-                font-family: 'Inter', sans-serif;
+                color: var(--text-muted);
+                font-size: 0.85em;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 10px;
+                font-weight: 600;
             }
 
             .input-group input,
             .input-group select {
                 width: 100%;
                 padding: 14px 18px;
-                background: rgba(51, 65, 85, 0.8);
+                background: rgba(30, 41, 59, 0.8);
                 border: 1px solid var(--border-color);
                 border-radius: 10px;
                 color: var(--text-white);
-                font-size: 1em;
-                font-family: 'Space Grotesk', sans-serif;
+                font-family: 'Inter', sans-serif;
                 transition: all 0.3s ease;
             }
 
@@ -215,72 +146,46 @@
             .input-group select:focus {
                 outline: none;
                 border-color: var(--primary-cyan);
-                box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
-            }
-
-            .input-group input::placeholder {
-                color: var(--text-muted);
+                background: rgba(30, 41, 59, 1);
+                box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
             }
 
             .search-btn {
                 background: linear-gradient(90deg, var(--primary-cyan) 0%, var(--accent-teal) 100%);
                 color: var(--bg-dark);
-                padding: 14px 36px;
+                padding: 14px 40px;
                 border: none;
                 border-radius: 10px;
                 font-size: 1.1em;
                 font-weight: 600;
                 cursor: pointer;
                 transition: all 0.3s ease;
-                box-shadow: 0 8px 24px rgba(6, 182, 212, 0.3);
-                align-self: flex-end;
+                box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3);
             }
 
             .search-btn:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 12px 32px rgba(6, 182, 212, 0.4);
-            }
-
-            .search-btn:disabled {
-                opacity: 0.6;
-                cursor: not-allowed;
-                transform: none;
-            }
-
-            .results-section {
-                display: none;
-            }
-
-            .results-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 24px;
-                padding-bottom: 16px;
-                border-bottom: 1px solid var(--border-color);
-            }
-
-            .results-title {
-                font-size: 1.4em;
-                font-weight: 600;
-                color: var(--text-white);
-            }
-
-            .results-count {
-                color: var(--primary-cyan);
-                font-weight: 500;
+                box-shadow: 0 12px 25px rgba(6, 182, 212, 0.4);
             }
 
             .recommendations-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-                gap: 20px;
+                grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+                gap: 24px;
+                opacity: 0;
+                transform: translateY(20px);
+                transition: all 0.5s ease;
+            }
+
+            .recommendations-grid.active {
+                opacity: 1;
+                transform: translateY(0);
             }
 
             .recommendation-card {
                 background: linear-gradient(135deg, rgba(51, 65, 85, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%);
                 border-radius: 16px;
-                padding: 24px;
+                padding: 28px;
                 border: 1px solid var(--border-color);
                 transition: all 0.3s ease;
                 position: relative;
@@ -295,84 +200,68 @@
                 width: 4px;
                 height: 100%;
                 background: linear-gradient(180deg, var(--primary-cyan), var(--primary-orange));
-                transition: width 0.3s ease;
-            }
-
-            .recommendation-card:hover::before {
-                width: 100%;
-                opacity: 0.1;
             }
 
             .recommendation-card:hover {
-                transform: translateY(-4px);
+                transform: translateY(-8px);
                 border-color: var(--primary-cyan);
-                box-shadow: 0 16px 32px rgba(6, 182, 212, 0.2);
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
             }
 
             .card-header {
                 display: flex;
                 justify-content: space-between;
                 align-items: flex-start;
-                margin-bottom: 16px;
+                margin-bottom: 12px;
             }
 
             .video-title {
-                font-size: 1.15em;
+                font-size: 1.2em;
                 font-weight: 600;
                 color: var(--text-white);
-                margin-bottom: 8px;
-            }
-
-            .video-id {
-                font-size: 0.85em;
-                color: var(--text-muted);
-                font-family: 'Inter', monospace;
+                flex: 1;
+                padding-right: 10px;
             }
 
             .score-badge {
-                background: linear-gradient(135deg, var(--primary-cyan), var(--accent-teal));
-                color: var(--bg-dark);
-                padding: 6px 12px;
+                background: rgba(6, 182, 212, 0.1);
+                color: var(--primary-cyan);
+                padding: 4px 12px;
                 border-radius: 20px;
                 font-size: 0.85em;
-                font-weight: 600;
+                font-weight: 700;
+                border: 1px solid rgba(6, 182, 212, 0.3);
             }
 
             .category-tag {
                 display: inline-block;
-                background: rgba(249, 115, 22, 0.15);
                 color: var(--primary-orange);
-                padding: 6px 14px;
-                border-radius: 20px;
-                font-size: 0.85em;
-                font-weight: 500;
-                margin-bottom: 12px;
-                border: 1px solid rgba(249, 115, 22, 0.3);
+                background: rgba(249, 115, 22, 0.1);
+                padding: 4px 12px;
+                border-radius: 6px;
+                font-size: 0.8em;
+                font-weight: 600;
+                margin-bottom: 15px;
+                text-transform: uppercase;
             }
 
             .reason {
-                color: var(--text-gray);
-                font-size: 0.95em;
+                color: var(--text-muted);
+                font-size: 0.9em;
+                line-height: 1.6;
                 font-family: 'Inter', sans-serif;
-                display: flex;
-                align-items: center;
-                gap: 8px;
             }
 
-            .reason-icon {
-                font-size: 1.2em;
-            }
-
-            .loading {
-                display: none;
+            .loading-state {
                 text-align: center;
                 padding: 40px;
+                display: none;
             }
 
             .spinner {
-                width: 50px;
-                height: 50px;
-                border: 4px solid var(--border-color);
+                width: 40px;
+                height: 40px;
+                border: 4px solid rgba(6, 182, 212, 0.1);
                 border-top-color: var(--primary-cyan);
                 border-radius: 50%;
                 animation: spin 1s linear infinite;
@@ -384,228 +273,85 @@
                     transform: rotate(360deg);
                 }
             }
-
-            .error-message {
-                display: none;
-                background: rgba(239, 68, 68, 0.1);
-                border: 1px solid rgba(239, 68, 68, 0.3);
-                color: #fca5a5;
-                padding: 16px 24px;
-                border-radius: 10px;
-                text-align: center;
-                margin-bottom: 20px;
-            }
-
-            .empty-state {
-                display: none;
-                text-align: center;
-                padding: 60px 20px;
-            }
-
-            .empty-icon {
-                font-size: 4em;
-                margin-bottom: 20px;
-            }
-
-            .empty-text {
-                color: var(--text-muted);
-                font-size: 1.1em;
-            }
-
-            @media (max-width: 768px) {
-                .main-card {
-                    padding: 30px 20px;
-                }
-
-                h1 {
-                    font-size: 1.8em;
-                }
-
-                .search-section {
-                    flex-direction: column;
-                }
-
-                .input-group {
-                    max-width: 100%;
-                }
-
-                .search-btn {
-                    width: 100%;
-                }
-            }
         </style>
     </head>
 
     <body>
-        <nav class="navbar">
-            <a href="index.jsp" class="nav-link">Accueil</a>
-            <a href="dashboard.jsp" class="nav-link">Console</a>
-            <a href="stats.jsp" class="nav-link">Statistiques</a>
-            <a href="recommendations.jsp" class="nav-link active">Recommandations IA</a>
-        </nav>
-        <div class="container">
+        <% request.setAttribute("pageName", "recommendations" ); %>
+            <%@ include file="navbar.jsp" %>
 
-            <div class="main-card">
-                <h1>🎯 Recommandations Personnalisées</h1>
-                <p class="description">
-                    Découvrez des vidéos recommandées basées sur votre historique de visionnage et vos préférences.
-                </p>
-
-                <div class="search-section">
-                    <div class="input-group">
-                        <label for="userId">Identifiant Utilisateur</label>
-                        <input type="text" id="userId" placeholder="Ex: user_10, user_100..." value="user_10">
+                <div class="container">
+                    <div class="header">
+                        <h1>🎯 Recommandations IA</h1>
+                        <p class="tagline">Intelligence Prédictive pour votre Audience</p>
                     </div>
-                    <div class="input-group">
-                        <label for="limit">Nombre de recommandations</label>
-                        <select id="limit">
-                            <option value="5">5 recommandations</option>
-                            <option value="10" selected>10 recommandations</option>
-                            <option value="20">20 recommandations</option>
-                        </select>
+
+                    <div class="search-section">
+                        <div class="input-group">
+                            <label>ID Utilisateur</label>
+                            <input type="text" id="userId" value="user_10" placeholder="ex: user_123">
+                        </div>
+                        <div class="input-group">
+                            <label>Nombre de Suggestions</label>
+                            <select id="limit">
+                                <option value="3">3 vidéos</option>
+                                <option value="6">6 vidéos</option>
+                                <option value="10" selected>10 vidéos</option>
+                            </select>
+                        </div>
+                        <button class="search-btn" onclick="fetchRecommendations()">Générer les suggestions</button>
                     </div>
-                    <button class="search-btn" onclick="fetchRecommendations()">
-                        Obtenir les Recommandations
-                    </button>
-                </div>
 
-                <div class="error-message" id="errorMessage"></div>
-
-                <div class="loading" id="loading">
-                    <div class="spinner"></div>
-                    <p style="color: var(--text-muted);">Analyse de vos préférences...</p>
-                </div>
-
-                <div class="empty-state" id="emptyState">
-                    <div class="empty-icon">📭</div>
-                    <p class="empty-text">Aucune recommandation trouvée pour cet utilisateur.<br>Essayez un autre ID
-                        utilisateur.</p>
-                </div>
-
-                <div class="results-section" id="resultsSection">
-                    <div class="results-header">
-                        <span class="results-title">Vidéos Recommandées</span>
-                        <span class="results-count" id="resultsCount"></span>
+                    <div id="loadingState" class="loading-state">
+                        <div class="spinner"></div>
+                        <p>Analyse de l'historique en cours...</p>
                     </div>
+
                     <div class="recommendations-grid" id="recommendationsGrid">
-                        <!-- Cards will be inserted here -->
+                        <!-- Dynamically populated -->
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <script>
-            const API_BASE = '/analytics-api/api/v1/analytics';
+                <script>
+                    async function fetchRecommendations() {
+                        const userId = document.getElementById('userId').value;
+                        const limit = document.getElementById('limit').value;
+                        const grid = document.getElementById('recommendationsGrid');
+                        const loader = document.getElementById('loadingState');
 
-            async function fetchRecommendations() {
-                const userId = document.getElementById('userId').value.trim();
-                const limit = document.getElementById('limit').value;
+                        grid.classList.remove('active');
+                        loader.style.display = 'block';
 
-                if (!userId) {
-                    showError('Veuillez entrer un identifiant utilisateur.');
-                    return;
-                }
+                        try {
+                            const response = await fetch(`/analytics-api/api/v1/analytics/users/` + userId + `/recommendations?limit=` + limit);
+                            const data = await response.json();
 
-                // Hide all states
-                hideAll();
-                document.getElementById('loading').style.display = 'block';
+                            grid.innerHTML = '';
+                            data.forEach(rec => {
+                                const card = document.createElement('div');
+                                card.className = 'recommendation-card';
+                                card.innerHTML = `
+                        <div class="card-header">
+                            <div class="video-title">` + rec.title + `</div>
+                            <div class="score-badge">` + Math.round(rec.score * 100) + `% Match</div>
+                        </div>
+                        <div class="category-tag">` + rec.category + `</div>
+                        <div class="reason">` + rec.reason + `</div>
+                    `;
+                                grid.appendChild(card);
+                            });
 
-                try {
-                    const response = await fetch(`${API_BASE}/users/${encodeURIComponent(userId)}/recommendations?limit=${limit}`);
+                            setTimeout(() => {
+                                loader.style.display = 'none';
+                                grid.classList.add('active');
+                            }, 300);
 
-                    if (!response.ok) {
-                        throw new Error(`Erreur HTTP: ${response.status}`);
+                        } catch (e) {
+                            console.error("Erreur:", e);
+                            loader.innerHTML = '<p style="color:var(--primary-orange)">Erreur lors de la récupération des données.</p>';
+                        }
                     }
-
-                    const recommendations = await response.json();
-                    displayRecommendations(recommendations);
-
-                } catch (error) {
-                    showError(`Erreur lors de la récupération: ${error.message}`);
-                }
-            }
-
-            function displayRecommendations(recommendations) {
-                hideAll();
-
-                if (!recommendations || recommendations.length === 0) {
-                    document.getElementById('emptyState').style.display = 'block';
-                    return;
-                }
-
-                const grid = document.getElementById('recommendationsGrid');
-                grid.innerHTML = '';
-
-                recommendations.forEach((rec, index) => {
-                    const card = createRecommendationCard(rec, index);
-                    grid.appendChild(card);
-                });
-
-                document.getElementById('resultsCount').textContent = `${recommendations.length} résultat(s)`;
-                document.getElementById('resultsSection').style.display = 'block';
-            }
-
-            function createRecommendationCard(rec, index) {
-                const card = document.createElement('div');
-                card.className = 'recommendation-card';
-                card.style.animationDelay = `${index * 0.1}s`;
-
-                const scorePercent = Math.round(rec.score * 100);
-                const reasonIcon = getReasonIcon(rec.reason);
-
-                card.innerHTML = `
-                <div class="card-header">
-                    <div>
-                        <div class="video-title">${escapeHtml(rec.title || 'Sans titre')}</div>
-                        <div class="video-id">${escapeHtml(rec.videoId)}</div>
-                    </div>
-                    <div class="score-badge">${scorePercent}%</div>
-                </div>
-                <div class="category-tag">${escapeHtml(rec.category || 'Non catégorisé')}</div>
-                <div class="reason">
-                    <span class="reason-icon">${reasonIcon}</span>
-                    ${escapeHtml(rec.reason)}
-                </div>
-            `;
-
-                return card;
-            }
-
-            function getReasonIcon(reason) {
-                if (!reason) return '💡';
-                if (reason.toLowerCase().includes('interest')) return '❤️';
-                if (reason.toLowerCase().includes('similar') || reason.toLowerCase().includes('viewers')) return '👥';
-                if (reason.toLowerCase().includes('trending') || reason.toLowerCase().includes('popular')) return '🔥';
-                return '💡';
-            }
-
-            function showError(message) {
-                hideAll();
-                const errorDiv = document.getElementById('errorMessage');
-                errorDiv.textContent = message;
-                errorDiv.style.display = 'block';
-            }
-
-            function hideAll() {
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('errorMessage').style.display = 'none';
-                document.getElementById('resultsSection').style.display = 'none';
-                document.getElementById('emptyState').style.display = 'none';
-            }
-
-            function escapeHtml(text) {
-                const div = document.createElement('div');
-                div.textContent = text;
-                return div.innerHTML;
-            }
-
-            // Allow Enter key to trigger search
-            document.getElementById('userId').addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                    fetchRecommendations();
-                }
-            });
-        </script>
+                </script>
     </body>
 
     </html>

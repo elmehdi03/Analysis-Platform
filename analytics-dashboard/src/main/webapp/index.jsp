@@ -29,44 +29,6 @@
                 --border-color: #475569;
             }
 
-            /* Global Navigation Styles */
-            .navbar {
-                position: fixed;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: rgba(30, 41, 59, 0.7);
-                backdrop-filter: blur(12px);
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                border-radius: 100px;
-                padding: 8px 16px;
-                display: flex;
-                gap: 8px;
-                z-index: 1000;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            }
-
-            .nav-link {
-                color: #94a3b8;
-                text-decoration: none;
-                font-size: 0.9em;
-                font-weight: 500;
-                padding: 8px 20px;
-                border-radius: 100px;
-                transition: all 0.3s ease;
-            }
-
-            .nav-link:hover {
-                color: #ffffff;
-                background: rgba(255, 255, 255, 0.05);
-            }
-
-            .nav-link.active {
-                color: #ffffff;
-                background: linear-gradient(90deg, #06b6d4 0%, #14b8a6 100%);
-                box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
-            }
-
             body {
                 font-family: 'Space Grotesk', 'Inter', sans-serif;
                 background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-slate) 100%);
@@ -334,71 +296,67 @@
     </head>
 
     <body>
-        <nav class="navbar">
-            <a href="index.jsp" class="nav-link active">Accueil</a>
-            <a href="dashboard.jsp" class="nav-link">Console</a>
-            <a href="stats.jsp" class="nav-link">Statistiques</a>
-            <a href="recommendations.jsp" class="nav-link">Recommandations IA</a>
-        </nav>
-        <div class="container">
-            <div class="header">
-                <h1>DataFlow Analytics</h1>
-                <p class="tagline">Intelligence Plateforme en Temps Réel</p>
-                <p class="description">
-                    Transformez vos données en insights actionnables. Analysez, visualisez et optimisez
-                    vos contenus streaming avec notre solution d'intelligence artificielle avancée.
-                </p>
-            </div>
+        <% request.setAttribute("pageName", "home" ); %>
+            <%@ include file="navbar.jsp" %>
+                <div class="container">
+                    <div class="header">
+                        <h1>DataFlow Analytics</h1>
+                        <p class="tagline">Intelligence Plateforme en Temps Réel</p>
+                        <p class="description">
+                            Transformez vos données en insights actionnables. Analysez, visualisez et optimisez
+                            vos contenus streaming avec notre solution d'intelligence artificielle avancée.
+                        </p>
+                    </div>
 
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <span class="metric-icon">⚡</span>
-                    <div class="metric-title">Analyse Instantanée</div>
-                    <div class="metric-description">
-                        Visualisez vos métriques en temps réel avec des tableaux de bord interactifs
-                        et des rapports automatisés.
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <span class="metric-icon">⚡</span>
+                            <div class="metric-title">Analyse Instantanée</div>
+                            <div class="metric-description">
+                                Visualisez vos métriques en temps réel avec des tableaux de bord interactifs
+                                et des rapports automatisés.
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <span class="metric-icon">🎯</span>
+                            <div class="metric-title">Recommandations IA</div>
+                            <div class="metric-description">
+                                Moteur d'apprentissage automatique pour des suggestions personnalisées
+                                basées sur le comportement utilisateur.
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <span class="metric-icon">📊</span>
+                            <div class="metric-title">Métriques Avancées</div>
+                            <div class="metric-description">
+                                KPIs détaillés, tendances prédictives et analyses démographiques
+                                pour piloter vos décisions stratégiques.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cta-section">
+                        <a href="dashboard.jsp" class="primary-btn">Accéder à la Console</a>
+                        <a href="recommendations.jsp" class="primary-btn"
+                            style="margin-left: 16px; background: linear-gradient(90deg, #f97316 0%, #fbbf24 100%); box-shadow: 0 8px 24px rgba(249, 115, 22, 0.3);">🎯
+                            Recommandations IA</a>
+                        <a href="stats.jsp" class="primary-btn"
+                            style="margin-left: 16px; background: linear-gradient(90deg, #8b5cf6 0%, #ec4899 100%); box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);">📊
+                            Statistiques</a>
+                    </div>
+
+                    <div class="footer">
+                        <p class="footer-text">DataFlow Analytics Platform © 2025</p>
+                        <div class="tech-badges">
+                            <span class="badge">Jakarta EE</span>
+                            <span class="badge">MongoDB Atlas</span>
+                            <span class="badge">Docker</span>
+                            <span class="badge">Machine Learning</span>
+                        </div>
                     </div>
                 </div>
-
-                <div class="metric-card">
-                    <span class="metric-icon">🎯</span>
-                    <div class="metric-title">Recommandations IA</div>
-                    <div class="metric-description">
-                        Moteur d'apprentissage automatique pour des suggestions personnalisées
-                        basées sur le comportement utilisateur.
-                    </div>
-                </div>
-
-                <div class="metric-card">
-                    <span class="metric-icon">📊</span>
-                    <div class="metric-title">Métriques Avancées</div>
-                    <div class="metric-description">
-                        KPIs détaillés, tendances prédictives et analyses démographiques
-                        pour piloter vos décisions stratégiques.
-                    </div>
-                </div>
-            </div>
-
-            <div class="cta-section">
-                <a href="dashboard.jsp" class="primary-btn">Accéder à la Console</a>
-                <a href="recommendations.jsp" class="primary-btn"
-                    style="margin-left: 16px; background: linear-gradient(90deg, #f97316 0%, #fbbf24 100%); box-shadow: 0 8px 24px rgba(249, 115, 22, 0.3);">🎯
-                    Recommandations IA</a>
-                <a href="stats.jsp" class="primary-btn"
-                    style="margin-left: 16px; background: linear-gradient(90deg, #8b5cf6 0%, #ec4899 100%); box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);">📊
-                    Statistiques</a>
-            </div>
-
-            <div class="footer">
-                <p class="footer-text">DataFlow Analytics Platform © 2025</p>
-                <div class="tech-badges">
-                    <span class="badge">Jakarta EE</span>
-                    <span class="badge">MongoDB Atlas</span>
-                    <span class="badge">Docker</span>
-                    <span class="badge">Machine Learning</span>
-                </div>
-            </div>
-        </div>
     </body>
 
     </html>

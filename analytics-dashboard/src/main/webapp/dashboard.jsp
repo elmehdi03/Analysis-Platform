@@ -31,44 +31,6 @@
                 /* Space for navbar */
             }
 
-            /* Global Navigation Styles */
-            .navbar {
-                position: fixed;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: rgba(30, 41, 59, 0.7);
-                backdrop-filter: blur(12px);
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                border-radius: 100px;
-                padding: 8px 16px;
-                display: flex;
-                gap: 8px;
-                z-index: 1000;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            }
-
-            .nav-link {
-                color: #94a3b8;
-                text-decoration: none;
-                font-size: 0.9em;
-                font-weight: 500;
-                padding: 8px 20px;
-                border-radius: 100px;
-                transition: all 0.3s ease;
-            }
-
-            .nav-link:hover {
-                color: #ffffff;
-                background: rgba(255, 255, 255, 0.05);
-            }
-
-            .nav-link.active {
-                color: #ffffff;
-                background: linear-gradient(90deg, #06b6d4 0%, #14b8a6 100%);
-                box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
-            }
-
             h1 {
                 font-family: 'Space Grotesk', sans-serif;
                 font-size: 5em;
@@ -154,37 +116,6 @@
                 font-size: 0.9em;
             }
 
-            .actions {
-                display: flex;
-                gap: 20px;
-            }
-
-            .btn {
-                padding: 16px 32px;
-                border-radius: 12px;
-                font-weight: 600;
-                text-decoration: none;
-                transition: all 0.3s ease;
-                font-size: 1.1em;
-            }
-
-            .btn-primary {
-                background: #5eead4;
-                color: #0f172a;
-                box-shadow: 0 0 20px rgba(94, 234, 212, 0.2);
-            }
-
-            .btn-primary:hover {
-                background: #2dd4bf;
-                box-shadow: 0 0 30px rgba(94, 234, 212, 0.4);
-            }
-
-            .btn-secondary {
-                background: #5eead4;
-                color: #0f172a;
-                box-shadow: 0 0 20px rgba(94, 234, 212, 0.2);
-            }
-
             .footer {
                 margin-top: 80px;
                 color: #64748b;
@@ -197,87 +128,77 @@
     </head>
 
     <body>
-        <nav class="navbar">
-            <a href="index.jsp" class="nav-link">Accueil</a>
-            <a href="dashboard.jsp" class="nav-link active">Console</a>
-            <a href="stats.jsp" class="nav-link">Statistiques</a>
-            <a href="recommendations.jsp" class="nav-link">Recommandations IA</a>
-        </nav>
+        <% request.setAttribute("pageName", "dashboard" ); %>
+            <%@ include file="navbar.jsp" %>
 
-        <h1>DataFlow Console</h1>
-        <div class="subtitle">Console de Supervision en Temps Réel</div>
+                <h1>DataFlow Console</h1>
+                <div class="subtitle">Console de Supervision en Temps Réel</div>
 
-        <div class="description">
-            Tableau de bord moderne pour l'analyse de vos données streaming et métriques de performance.
-        </div>
+                <div class="description">
+                    Tableau de bord moderne pour l'analyse de vos données streaming et métriques de performance.
+                </div>
 
-        <div class="metrics-container">
-            <div class="card">
-                <span class="counter" id="eventsCount">0</span>
-                <span class="label">ÉVÉNEMENTS</span>
-            </div>
+                <div class="metrics-container">
+                    <div class="card">
+                        <span class="counter" id="eventsCount">0</span>
+                        <span class="label">ÉVÉNEMENTS</span>
+                    </div>
 
-            <div class="card">
-                <span class="counter" id="videosCount">0</span>
-                <span class="label">VIDÉOS</span>
-            </div>
+                    <div class="card">
+                        <span class="counter" id="videosCount">0</span>
+                        <span class="label">VIDÉOS</span>
+                    </div>
 
-            <div class="card">
-                <span class="counter">24/7</span>
-                <span class="label">TEMPS RÉEL</span>
-            </div>
-        </div>
+                    <div class="card">
+                        <span class="counter">24/7</span>
+                        <span class="label">TEMPS RÉEL</span>
+                    </div>
+                </div>
 
-        <div class="actions">
-            <a href="stats.jsp" class="btn btn-primary">Voir les Statistiques</a>
-            <a href="index.jsp" class="btn btn-secondary">Accueil</a>
-        </div>
+                <div class="footer">
+                    DataFlow Analytics Platform – 2025<br>
+                    Propulsé par Jakarta EE & MongoDB
+                </div>
 
-        <div class="footer">
-            DataFlow Analytics Platform – 2025<br>
-            Propulsé par Jakarta EE & MongoDB
-        </div>
-
-        <script>
-            async function fetchStats() {
-                try {
-                    const response = await fetch('/analytics-api/api/v1/analytics/summary');
-                    const data = await response.json();
-                    animateValue("eventsCount", 0, data.totalEvents, 1500);
-                    animateValue("videosCount", 0, data.totalVideos, 1500);
-                } catch (e) {
-                    console.error("Erreur chargement stats:", e);
-                    document.getElementById('eventsCount').innerText = "1.2K+";
-                    document.getElementById('videosCount').innerText = "30+";
-                }
-            }
-
-            function animateValue(id, start, end, duration) {
-                if (start === end) return;
-                var range = end - start;
-                var current = start;
-                var increment = end > start ? Math.ceil(range / 50) : -1;
-                if (increment === 0) increment = 1;
-                var stepTime = Math.abs(Math.floor(duration / (range / increment)));
-                var obj = document.getElementById(id);
-
-                const format = (num) => {
-                    if (num >= 1000) return (num / 1000).toFixed(1) + 'K+';
-                    return num;
-                };
-
-                var timer = setInterval(function () {
-                    current += increment;
-                    if (current >= end) {
-                        current = end;
-                        clearInterval(timer);
+                <script>
+                    async function fetchStats() {
+                        try {
+                            const response = await fetch('/analytics-api/api/v1/analytics/summary');
+                            const data = await response.json();
+                            animateValue("eventsCount", 0, data.totalEvents, 1500);
+                            animateValue("videosCount", 0, data.totalVideos, 1500);
+                        } catch (e) {
+                            console.error("Erreur chargement stats:", e);
+                            document.getElementById('eventsCount').innerText = "1.2K+";
+                            document.getElementById('videosCount').innerText = "30+";
+                        }
                     }
-                    obj.innerHTML = format(current);
-                }, stepTime);
-            }
 
-            fetchStats();
-        </script>
+                    function animateValue(id, start, end, duration) {
+                        if (start === end) return;
+                        var range = end - start;
+                        var current = start;
+                        var increment = end > start ? Math.ceil(range / 50) : -1;
+                        if (increment === 0) increment = 1;
+                        var stepTime = Math.abs(Math.floor(duration / (range / increment)));
+                        var obj = document.getElementById(id);
+
+                        const format = (num) => {
+                            if (num >= 1000) return (num / 1000).toFixed(1) + 'K+';
+                            return num;
+                        };
+
+                        var timer = setInterval(function () {
+                            current += increment;
+                            if (current >= end) {
+                                current = end;
+                                clearInterval(timer);
+                            }
+                            obj.innerHTML = format(current);
+                        }, stepTime);
+                    }
+                    fetchStats();
+                </script>
     </body>
 
     </html>
