@@ -114,6 +114,34 @@ public class VideoRepository {
         return videos;
     }
 
+    /**
+     * Sauvegarde ou met à jour une vidéo
+     */
+    public void save(Video video) {
+        Document doc = new Document("videoId", video.getVideoId())
+                .append("title", video.getTitle())
+                .append("category", video.getCategory())
+                .append("duration", video.getDuration())
+                .append("uploadDate", video.getUploadDate())
+                .append("views", video.getViews())
+                .append("likes", video.getLikes());
+
+        // Upsert: replace if exists, insert otherwise
+        collection.replaceOne(
+                new Document("videoId", video.getVideoId()),
+                doc,
+                new com.mongodb.client.model.ReplaceOptions().upsert(true));
+    }
+
+    /**
+     * Incrémente le nombre de vues d'une vidéo
+     */
+    public void incrementViews(String videoId) {
+        collection.updateOne(
+                new Document("videoId", videoId),
+                new Document("$inc", new Document("views", 1)));
+    }
+
     private Video documentToVideo(Document doc) {
         Video video = new Video();
         video.setVideoId(doc.getString("videoId"));

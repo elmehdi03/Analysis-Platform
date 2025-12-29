@@ -369,4 +369,49 @@ public class AnalyticsResource {
     // // TODO: Implémenter le streaming SSE
     // // Envoyer des stats toutes les 2 secondes
     // }
+    /**
+     * ENDPOINT UTILITAIRE : Seed de données
+     * POST /api/v1/analytics/seed
+     */
+    @POST
+    @Path("/seed")
+    public Response seedData() {
+        try {
+            // Créer le repository de vidéos manuellement (hack CDI)
+            com.streaming.analytics.repository.VideoRepository videoRepo = new com.streaming.analytics.repository.VideoRepository();
+            com.streaming.analytics.repository.EventRepository eventRepo = new com.streaming.analytics.repository.EventRepository();
+
+            // 1. Générer des vidéos
+            String[] categories = { "Technologie", "Gaming", "Musique", "Vlog", "Éducation", "Sport" };
+            for (int i = 1; i <= 30; i++) {
+                com.streaming.analytics.model.Video v = new com.streaming.analytics.model.Video();
+                v.setVideoId("vid_" + i);
+                String cat = categories[i % categories.length];
+                v.setTitle("Vidéo " + cat + " #" + i);
+                v.setCategory(cat);
+                v.setDuration(120 + (i * 10)); // Durée variable
+                v.setUploadDate(java.time.LocalDateTime.now().minusDays(i).toString());
+                v.setViews(1000 * i + (int) (Math.random() * 500)); // Vues significatives
+                v.setLikes(v.getViews() / 10);
+
+                videoRepo.save(v);
+            }
+
+            // 2. Générer quelques événements de vue pour les stats temps réel
+            for (int i = 0; i < 50; i++) {
+                ViewEvent event = new ViewEvent();
+                event.setVideoId("vid_" + (i % 10 + 1));
+                event.setUserId("user_" + (i % 5 + 1));
+                event.setTimestamp(java.time.LocalDateTime.now().toString());
+                event.setDuration(30 + (int) (Math.random() * 200));
+                eventRepo.save(event);
+            }
+
+            return Response.ok("{\"message\":\"Database populated with seed data!\"}").build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.serverError().entity("{\"error\":\"" + e.getMessage() + "\"}").build();
+        }
+    }
+
 }
