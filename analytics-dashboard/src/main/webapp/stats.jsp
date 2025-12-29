@@ -198,112 +198,113 @@
                 });
             }
 
-            // Fonction pour le Graphique de Performance (Style Pro)
-            function renderPerformanceChart() {
-                const ctx = document.getElementById('performanceChart').getContext('2d');
+            // Fonction pour le Graphique de Performance (Données Réelles)
+            async function renderPerformanceChart() {
+                try {
+                    const res = await fetch('/analytics-api/api/v1/analytics/performance/monthly');
+                    const stats = await res.json();
 
-                // Données simulées (12 mois)
-                const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'];
+                    const ctx = document.getElementById('performanceChart').getContext('2d');
 
-                // Données miroirs du chart demandé (Bars + Lines)
-                // Bar 1 (Bleu): Vues (vs Reserves)
-                // Bar 2 (Orange): Visiteurs (vs NPLs)
-                // Line 1 (Vert): Rétention (vs Reserves %)
-                // Line 2 (Jaune): Engagement (vs NPL Rate)
+                    // Mapper les données API
+                    // Si aucune donnée, utiliser les labels par défaut ou vides
+                    const months = stats.length > 0 ? stats.map(s => s.month) : ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'];
+                    const viewsData = stats.map(s => s.totalViews);
+                    const visitorsData = stats.map(s => s.uniqueVisitors);
+                    const retentionData = stats.map(s => s.retentionRate);
+                    const engagementData = stats.map(s => s.engagementRate);
 
-                const viewsData = [120, 135, 125, 145, 160, 175, 165, 180, 195, 210, 205, 225];
-                const visitorsData = [90, 100, 95, 110, 115, 130, 125, 140, 150, 165, 160, 180];
-                const retentionData = [45, 48, 46, 52, 55, 53, 58, 60, 62, 59, 65, 68];
-                const engagementData = [12, 14, 13, 15, 18, 16, 19, 21, 20, 22, 24, 25];
-
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: months,
-                        datasets: [
-                            {
-                                label: 'Vues Totales (k)',
-                                data: viewsData,
-                                backgroundColor: '#06b6d4',
-                                order: 2,
-                                yAxisID: 'y'
-                            },
-                            {
-                                label: 'Visiteurs Uniques (k)',
-                                data: visitorsData,
-                                backgroundColor: '#f97316',
-                                order: 3,
-                                yAxisID: 'y'
-                            },
-                            {
-                                label: 'Rétention (%)',
-                                data: retentionData,
-                                type: 'line',
-                                borderColor: '#10b981', // Green
-                                backgroundColor: '#10b981',
-                                borderWidth: 2,
-                                pointRadius: 4,
-                                tension: 0.3,
-                                order: 0,
-                                yAxisID: 'y1'
-                            },
-                            {
-                                label: 'Engagement (%)',
-                                data: engagementData,
-                                type: 'line',
-                                borderColor: '#fbbf24', // Yellow
-                                backgroundColor: '#fbbf24',
-                                borderWidth: 2,
-                                pointRadius: 4,
-                                tension: 0.3,
-                                order: 1,
-                                yAxisID: 'y1'
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        interaction: {
-                            mode: 'index',
-                            intersect: false,
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: months,
+                            datasets: [
+                                {
+                                    label: 'Vues Totales',
+                                    data: viewsData,
+                                    backgroundColor: '#06b6d4',
+                                    order: 2,
+                                    yAxisID: 'y'
+                                },
+                                {
+                                    label: 'Visiteurs Uniques',
+                                    data: visitorsData,
+                                    backgroundColor: '#f97316',
+                                    order: 3,
+                                    yAxisID: 'y'
+                                },
+                                {
+                                    label: 'Rétention (%)',
+                                    data: retentionData,
+                                    type: 'line',
+                                    borderColor: '#10b981', // Green
+                                    backgroundColor: '#10b981',
+                                    borderWidth: 2,
+                                    pointRadius: 4,
+                                    tension: 0.3,
+                                    order: 0,
+                                    yAxisID: 'y1'
+                                },
+                                {
+                                    label: 'Engagement (%)',
+                                    data: engagementData,
+                                    type: 'line',
+                                    borderColor: '#fbbf24', // Yellow
+                                    backgroundColor: '#fbbf24',
+                                    borderWidth: 2,
+                                    pointRadius: 4,
+                                    tension: 0.3,
+                                    order: 1,
+                                    yAxisID: 'y1'
+                                }
+                            ]
                         },
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                                labels: { usePointStyle: true, color: '#94a3b8' }
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            interaction: {
+                                mode: 'index',
+                                intersect: false,
                             },
-                            title: {
-                                display: false,
-                                text: 'Performance Mensuelle'
-                            }
-                        },
-                        scales: {
-                            x: {
-                                grid: { display: false },
-                                ticks: { color: '#94a3b8' }
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                    labels: { usePointStyle: true, color: '#94a3b8' }
+                                },
+                                title: {
+                                    display: false,
+                                    text: 'Performance Mensuelle'
+                                }
                             },
-                            y: {
-                                type: 'linear',
-                                display: true,
-                                position: 'left',
-                                title: { display: true, text: 'Volume (k)', color: '#94a3b8' },
-                                grid: { color: '#334155', borderDash: [5, 5] },
-                                ticks: { color: '#94a3b8' }
-                            },
-                            y1: {
-                                type: 'linear',
-                                display: true,
-                                position: 'right',
-                                title: { display: true, text: 'Pourcentage (%)', color: '#94a3b8' },
-                                grid: { drawOnChartArea: false },
-                                ticks: { color: '#94a3b8' },
-                                min: 0,
-                                max: 100
+                            scales: {
+                                x: {
+                                    grid: { display: false },
+                                    ticks: { color: '#94a3b8' }
+                                },
+                                y: {
+                                    type: 'linear',
+                                    display: true,
+                                    position: 'left',
+                                    title: { display: true, text: 'Volume', color: '#94a3b8' },
+                                    grid: { color: '#334155', borderDash: [5, 5] },
+                                    ticks: { color: '#94a3b8' }
+                                },
+                                y1: {
+                                    type: 'linear',
+                                    display: true,
+                                    position: 'right',
+                                    title: { display: true, text: 'Pourcentage (%)', color: '#94a3b8' },
+                                    grid: { drawOnChartArea: false },
+                                    ticks: { color: '#94a3b8' },
+                                    min: 0,
+                                    max: 100
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                } catch (error) {
+                    console.error("Erreur chargement performance:", error);
+                }
             }
 
             // Démarrer le chargement

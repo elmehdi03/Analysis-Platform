@@ -109,6 +109,19 @@ public class EventRepository {
         return events;
     }
 
+    /**
+     * Récupère les événements après une certaine date
+     */
+    public List<ViewEvent> findEventsAfter(String timestamp) {
+        List<ViewEvent> events = new ArrayList<>();
+        // Comparaison lexicographique sur format ISO-8601 fonctionne
+        Document query = new Document("timestamp", new Document("$gte", timestamp));
+        for (Document doc : collection.find(query)) {
+            events.add(documentToViewEvent(doc));
+        }
+        return events;
+    }
+
     private ViewEvent documentToViewEvent(Document doc) {
         ViewEvent event = new ViewEvent();
         event.setEventId(doc.getString("eventId"));

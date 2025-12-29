@@ -8,9 +8,11 @@ import com.streaming.analytics.service.RecommendationService;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import com.streaming.analytics.model.MonthlyStats;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * API REST pour l'ingestion et l'analyse des événements de visualisation
@@ -318,6 +320,21 @@ public class AnalyticsResource {
     }
 
     /**
+     * ENDPOINT 7 : Performance Mensuelle
+     * GET /api/v1/analytics/performance/monthly
+     */
+    @GET
+    @Path("/performance/monthly")
+    public Response getMonthlyPerformance() {
+        try {
+            List<MonthlyStats> stats = eventProcessorService.getMonthlyPerformance();
+            return Response.ok(stats).build();
+        } catch (Exception e) {
+            return Response.serverError().entity("{\"error\":\"" + e.getMessage() + "\"}").build();
+        }
+    }
+
+    /**
      * ENDPOINT 5 : Recommandations personnalisées
      * GET /api/v1/analytics/users/{userId}/recommendations?limit=5
      * 
@@ -383,6 +400,8 @@ public class AnalyticsResource {
 
             // 1. Générer des vidéos
             String[] categories = { "Technologie", "Gaming", "Musique", "Vlog", "Éducation", "Sport" };
+            Random rand = new Random();
+
             for (int i = 1; i <= 30; i++) {
                 com.streaming.analytics.model.Video v = new com.streaming.analytics.model.Video();
                 v.setVideoId("vid_" + i);
@@ -391,23 +410,40 @@ public class AnalyticsResource {
                 v.setCategory(cat);
                 v.setDuration(120 + (i * 10)); // Durée variable
                 v.setUploadDate(java.time.LocalDateTime.now().minusDays(i).toString());
-                v.setViews(1000 * i + (int) (Math.random() * 500)); // Vues significatives
-                v.setLikes(v.getViews() / 10);
+                v.setViews(0); // On recalculera avec les events
+                v.setLikes(0);
 
                 videoRepo.save(v);
             }
 
-            // 2. Générer quelques événements de vue pour les stats temps réel
-            for (int i = 0; i < 50; i++) {
+            // 2. Générer des événements sur les 12 derniers mois (1200 events)
+            java.time.LocalDateTime now = java.time.LocalDateTime.now();
+            String[] qualities = { "720p", "1080p", "4k" };
+            String[] devices = { "Mobile", "Desktop", "TV" };
+
+            for (int i = 0; i < 1200; i++) {
                 ViewEvent event = new ViewEvent();
-                event.setVideoId("vid_" + (i % 10 + 1));
-                event.setUserId("user_" + (i % 5 + 1));
-                event.setTimestamp(java.time.LocalDateTime.now().toString());
-                event.setDuration(30 + (int) (Math.random() * 200));
+                event.setVideoId("vid_" + (rand.nextInt(30) + 1));
+                event.setUserId("user_" + (rand.nextInt(50) + 1));
+
+                // Random date in last 365 days
+                java.time.LocalDateTime eventTime = now.minusDays(rand.nextInt(365))
+                        .minusHours(rand.nextInt(24))
+                        .minusMinutes(rand.nextInt(60));
+
+                event.setTimestamp(eventTime.toString());
+                event.setAction("view");
+                event.setDuration(30 + rand.nextInt(300));
+                event.setQuality(qualities[rand.nextInt(qualities.length)]);
+                event.setDeviceType(devices[rand.nextInt(devices.length)]);
+
                 eventRepo.save(event);
+
+                // Mettre à jour les stats de la vidéo (simple counter)
+                videoRepo.incrementViews(event.getVideoId());
             }
 
-            return Response.ok("{\"message\":\"Database populated with seed data!\"}").build();
+            return Response.ok("{\"message\":\"Database populated with historical seed data (1200 events)!\"}").build();
         } catch (Exception e) {
             e.printStackTrace();
             return Response.serverError().entity("{\"error\":\"" + e.getMessage() + "\"}").build();
